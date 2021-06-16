@@ -34,7 +34,7 @@ class RecipeSerializer(serializers.ModelSerializer):
             'id',
             'title',
             'author',
-            #'video',
+            'url',
             'cooktime',
             'ingredients',
             'created_date',

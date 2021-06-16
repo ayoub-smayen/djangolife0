@@ -30,6 +30,8 @@ class RecipeVideo(models.Model):
     published_date = models.DateTimeField(blank=True, null=True)
 
     picture = models.ImageField(blank=True, null=True, upload_to=f"reciepevideos/{fg}/")
+    url = models.FileField(blank=True,null=True,upload_to=f"rvideos/{fg}/videorecipes")
+    
     video = models.FileField(blank=True, null=True, upload_to=f"recipesvideosusers/{fg}/")
 
     def publish(self):
