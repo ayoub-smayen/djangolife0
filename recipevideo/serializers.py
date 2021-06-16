@@ -30,20 +30,23 @@ class RecipeSerializer(serializers.ModelSerializer):
     # username = serializers.HiddenField(default=serializers.CurrentUserDefault())
     class Meta:
         model = RecipeVideo
-        fields = [
-            'id',
-            'title',
-            'author',
-            'url',
-            'cooktime',
-            'ingredients',
-            'created_date',
-            'directions',
-            'picture',
-            'video'
+        fields = (
+           # 'id',
+            #'title',
+            #'author',
+
+            #'cooktime',
+            #'ingredients',
+            #'created_date',
+            #'directions',
+            #'picture',
+            #'url',
+            #'video',
+            '__all__'
 
 
-        ]
+
+        )
 
     def get_username(self, obj):
         obj.author = self.request.user.id
@@ -51,7 +54,7 @@ class RecipeSerializer(serializers.ModelSerializer):
 
 
 class UserSerializer(serializers.ModelSerializer):
-    reciepsvideo = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
+    reciepesvideo = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
 
     class Meta:
         model = User

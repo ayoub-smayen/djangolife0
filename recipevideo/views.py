@@ -11,7 +11,7 @@ from .models import RecipeVideo
 from .forms import RecipeForm
 from userprofile.models import Favorite
 # from django.contrib.auth.models import User
-from reciepe.serializers import RecipeSerializer
+from .serializers import RecipeSerializer
 from rest_framework import generics, viewsets
 from django.http import JsonResponse
 import json
@@ -29,6 +29,18 @@ class ReciepeVideoViewSet(viewsets.ModelViewSet):
 
     # specify serializer to be used
     serializer_class = RecipeSerializer
+
+    def perform_create(self, serializer):
+        if self.request.user:
+            serializer.save(author=self.request.user)
+        else:
+            author = User()
+            author.username = "ayoub"
+            serializer.save(author=author)
+
+
+
+
 
 
 class RecipeList(generics.ListCreateAPIView):
