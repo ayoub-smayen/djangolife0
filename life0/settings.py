@@ -32,6 +32,8 @@ CORS_ALLOWED_ORIGINS = [
     "https://localhost:44385",
     "http://localhost:4205",
     "http://127.0.0:4205",
+    "http://localhost:3001",
+    "http://127.0.0.1:3001"
 
 ]
 ALLOWED_HOSTS = ["*"]
@@ -58,6 +60,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'salesman.core',
+    'recipevideo',
+    'music',
     'chat',
     'cart0',
     'core',

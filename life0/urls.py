@@ -41,6 +41,10 @@ urlpatterns = [
       url(r'^api/user/', include('userprofile.urls', namespace='userprofile')),
     url(r'^feed/', include('feed.urls')),
    url(r'^story/', include('story.urls')),
+url(r'^music/', include('music.urls')),
+url(r'^recipevideo/', include('recipevideo.urls')),
+
+
 
 ]
 
