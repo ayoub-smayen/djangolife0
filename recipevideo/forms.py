@@ -8,5 +8,7 @@ class RecipeForm(forms.ModelForm):
                   'cooktime',
                   'ingredients',
                   'directions',
-                  'video',
-                  'picture')
+                  #'video',
+                  'picture',
+                  'video'
+                  )

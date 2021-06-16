@@ -30,17 +30,20 @@ class RecipeSerializer(serializers.ModelSerializer):
     # username = serializers.HiddenField(default=serializers.CurrentUserDefault())
     class Meta:
         model = RecipeVideo
-        fields = ("__all__")
-            # [
-            # 'id',
-            # 'title',
-            # 'author',
-            # 'video',
-            # 'cooktime',
-            # 'ingredients',
-            # 'created_date',
-            # 'directions',
-            # 'picture']
+        fields = [
+            'id',
+            'title',
+            'author',
+            #'video',
+            'cooktime',
+            'ingredients',
+            'created_date',
+            'directions',
+            'picture',
+            'video'
+
+
+        ]
 
     def get_username(self, obj):
         obj.author = self.request.user.id
@@ -52,7 +55,7 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ('id', 'username', 'email', 'password', 'reciepsvideo')
+        fields = ('id', 'username', 'email', 'password', 'reciepesvideo')
         extra_kwargs = {
             'password': {
                 'write_only': True
