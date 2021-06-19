@@ -44,6 +44,9 @@ urlpatterns = [
 url(r'^music/', include('music.urls')),
 url(r'^recipevideo/', include('recipevideo.urls')),
 
+url(r'^polls/', include('polls.urls')),
+url(r'^ingredient/', include('ingredient.urls')),
+
 
 
 ]
