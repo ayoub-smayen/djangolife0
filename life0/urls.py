@@ -17,10 +17,19 @@ from django.conf.urls import url,include
 from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
+from django.urls import path
 from rest_framework_jwt.views import obtain_jwt_token
 from rest_framework_jwt.views import  verify_jwt_token, refresh_jwt_token
+
+from django.contrib.auth.views import PasswordResetView, PasswordResetDoneView, PasswordResetConfirmView, PasswordResetCompleteView
+
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+path('reset-password', PasswordResetView.as_view(), name='password_reset'),
+    path('reset-password/done', PasswordResetDoneView.as_view(), name='password_reset_done'),
+    path('reset-password/confirm/<uidb64>[0-9A-Za-z]+)-<token>/', PasswordResetConfirmView.as_view(), name='password_reset_confirm'),
+
+    path('reset-password/complete/',PasswordResetCompleteView.as_view(),name='password_reset_complete'),
     url(r'^api/', include('salesman.urls')),
     url(r'^prod/',include('shop.urls')),
     url(r'^', include('chat.urls')),

@@ -204,6 +204,14 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
+EMAIL_BACKEND="django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'ayoubjobs.2019@gmail.com' #your email-id
+EMAIL_HOST_PASSWORD = 'sahar+ayoub1' #your password
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_USE_SSL = False
+
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [
