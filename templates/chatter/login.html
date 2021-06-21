@@ -1,0 +1,429 @@
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Open DataBase</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+    <script>
+
+        var Database_Name = 'MyDatabase';
+        var Version = 1.0;
+        var Text_Description = 'My First Web-SQL Example';
+        var Database_Size = 2 * 1024 * 1024;
+        var dbObj = openDatabase(Database_Name, Version, Text_Description, Database_Size);
+        dbObj.transaction(function (tx) {
+
+            tx.executeSql('CREATE TABLE IF NOT EXISTS Employee_Table (id unique, Name, Location,did)');
+            tx.executeSql('CREATE TABLE IF NOT EXISTS dept_Table (did unique, dName,estd)');
+
+
+            var today = new Date();
+            var dd = today.getDate();
+            var mm = today.getMonth() + 1; //January is 0!
+
+            var yyyy = today.getFullYear();
+            if (dd < 10) {
+                dd = '0' + dd
+            }
+            if (mm < 10) {
+                mm = '0' + mm
+            }
+            var today = dd + '/' + mm + '/' + yyyy;
+
+            tx.executeSql('insert into dept_Table(did, dName, estd) values(1,"IT","' + today + '")');
+            tx.executeSql('insert into dept_Table(did, dName, estd) values(2,"Accountant","' + today + '")');
+            tx.executeSql('insert into dept_Table(did, dName, estd) values(3,"Claerk","' + today + '")');
+            tx.executeSql('insert into dept_Table(did, dName, estd) values(4,"Management","' + today + '")');
+            alldetails();
+        });
+
+
+        function Insert() {
+
+            var id = document.getElementById("tbID").value;
+            var name = document.getElementById("tbName").value;
+            var location = document.getElementById("tbLocation").value;
+            var did = document.getElementById("tbLdept").value;
+            dbObj.transaction(function (tx) {
+                tx.executeSql('insert into Employee_Table(id, Name, Location,did) values(' + id + ',"' + name + '","' + location + '",' + did + ')');
+
+
+            });
+
+            alldetails();
+        }
+
+        function del() {
+            var id = document.getElementById("ddlid").value;
+          //  alert(id);
+            dbObj.transaction(function (tx) {
+                tx.executeSql('delete from Employee_Table where id=' + id + '');
+            });
+
+            empidbind();
+
+            alldetails();
+        }
+
+
+        function myFunction()
+        {
+            var id = document.getElementById("ddlid").value;
+
+            dbObj.transaction(function (tx) {
+                tx.executeSql('SELECT * from Employee_Table where id=' + id + '', [], function (tx, results)
+                {
+                    document.getElementById("tbName").value = results.rows.item(0).Name;
+                    document.getElementById("tbLocation").value = results.rows.item(0).Location;
+                    document.getElementById("tbLdept").value = results.rows.item(0).did;
+
+
+                }, null);
+            });
+
+        }
+
+        function showdel() {
+
+            empidbind();
+
+            $('#tdorginal').hide();
+            $('#tdid').show();
+            $('#btnupdate').hide();
+            $('#btnInsert').hide();
+            $('#btndel').show();
+            $('#btninsertshw').show();
+            $('#btnupdateshw').show();
+            $('#btndeleteshw').hide();
+            ////////////
+            $('#rowName').hide();
+            $('#rowLocation').hide();
+            $('#rowdept').hide();
+        }
+
+        function showin()
+        {
+            $('#tdid').hide();
+            $('#tdorginal').show();
+
+            $('#btnupdate').hide();
+            $('#btnInsert').show();
+            $('#btndel').hide();
+            $('#btninsertshw').hide();
+            $('#btnupdateshw').show();
+            $('#btndeleteshw').show();
+            ////////////
+            $('#rowName').show();
+            $('#rowLocation').show();
+            $('#rowdept').show();
+
+            /////////////
+          document.getElementById("tbID").value='';
+          document.getElementById("tbName").value='';
+          document.getElementById("tbLocation").value='';
+          document.getElementById("tbLdept").value='1';
+
+               empidbind();
+        }
+
+
+        function empidbind()
+        {
+            dbObj.transaction(function (tx) {
+                tx.executeSql('SELECT * from Employee_Table', [], function (tx, results) {
+                    var len = results.rows.length, i;
+                    document.getElementById("ddlid").innerHTML = '';
+                    var str = '';
+                    for (i = 0; i < len; i++) {
+                        str += "<option value=" + results.rows.item(i).id + ">" + results.rows.item(i).id + "</option>";
+                        document.getElementById("ddlid").innerHTML += str;
+                        str = '';
+                    }
+                }, null);
+            });
+
+        }
+
+        function showupdte()
+        {
+            empidbind();
+
+
+            $('#tdorginal').hide();
+            $('#tdid').show();
+            $('#btnupdate').show();
+            $('#btnInsert').hide();
+            $('#btndel').hide();
+            $('#btninsertshw').show();
+            $('#btnupdateshw').hide();
+            $('#btndeleteshw').show();
+            $('#rowName').show();
+            $('#rowLocation').show();
+            $('#rowdept').show();
+
+        }
+
+        function updte() {
+
+            var id = document.getElementById("ddlid").value;
+            var name = document.getElementById("tbName").value;
+            var location = document.getElementById("tbLocation").value;
+            var did = document.getElementById("tbLdept").value;
+
+            dbObj.transaction(function (tx) {
+                tx.executeSql('update Employee_Table set Name="' + name + '",Location="' + location + '",did=' + did + ' where id=' + id + '');
+            });
+
+            alldetails();
+        }
+
+        function alldetails()
+        {
+            dbObj.transaction(function (tx) {
+                tx.executeSql('SELECT e.id,e.Name,e.Location,d.dName,d.did FROM Employee_Table e inner join dept_Table d on e.did=d.did ', [], function (tx, results) {
+                    var len = results.rows.length, i;
+                    // document.getElementById("tblGrid").innerHTML = '';
+                    $("#tblGrid").find("tr:gt(0)").remove();
+                    var str = '';
+                    for (i = 0; i < len; i++) {
+                        str += "<tr>";
+                        str += "<td>" + results.rows.item(i).id + "</td>";
+                        str += "<td>" + results.rows.item(i).Name + "</td>";
+                        str += "<td>" + results.rows.item(i).Location + "</td>";
+                        str += "<td>" + results.rows.item(i).dName + "</td>";
+                        str += "</tr>";
+                        document.getElementById("tblGrid").innerHTML += str;
+                        str = '';
+                    }
+                }, null);
+            });
+
+        }
+
+        dbObj.transaction(function (tx) {
+            tx.executeSql('SELECT * from dept_Table', [], function (tx, results) {
+                var len = results.rows.length, i;
+                var str = '';
+                for (i = 0; i < len; i++) {
+                    str += "<option value=" + results.rows.item(i).did + ">" + results.rows.item(i).dName + "</option>";
+                    document.getElementById("tbLdept").innerHTML += str;
+                    str = '';
+                }
+            }, null);
+        });
+
+
+
+    </script>
+</head>
+<body>
+    <p id="hh"></p>
+    <form id="frm1">
+        <table id="tblinsert">
+            <tr>
+                <td>ID:</td>
+                <td id="tdorginal"><input type="text" id="tbID" /><span style="color:red">*ID must be unique</span></td>
+                <td id="tdid" style="display:none">
+                    <select id="ddlid" onchange="myFunction()"></select>
+                </td>
+            </tr>
+            <tr id="rowName">
+                <td>Name:</td>
+                <td><input type="text" id="tbName" /></td>
+
+            </tr>
+            <tr id="rowLocation">
+                <td>Location:</td>
+                <td><input type="text" id="tbLocation" /></td>
+            </tr>
+
+            <tr id="rowdept">
+                <td>Dept:</td>
+                <td>
+                    <select id="tbLdept"></select>
+                </td>
+            </tr>
+
+            <tr>
+
+            </tr>
+        </table>
+    </form>
+    <br />
+    <button id="btnInsert" onclick="Insert()" style="color:green;display:block">Save</button>
+    <button id="btnupdate" onclick="updte()" style="color:blue;display:none">Update</button>
+    <button id="btndel" onclick="del()" style="color:red;display:none">Delete</button>
+
+    <br /><br />
+    <button id="btnupdateshw" onclick="showupdte()" style="color:red">update Employee details</button>
+    <button id="btndeleteshw" onclick="showdel()" style="color:blue">Delete Employee details</button>
+    <button id="btninsertshw" onclick="showin()" style="color:green;display:none">save Employee details</button>
+    <br /><br />
+    <table id="tblGrid" cellpadding="10px" cellspacing="0" border="1">
+        <tr style="background-color:black;color:white;font-size:18px;">
+            <td >
+                ID
+            </td>
+            <td >
+                Name
+            </td>
+            <td >
+                Location
+            </td>
+            <td >
+                Department
+            </td>
+        </tr>
+    </table>
+    <br />
+
+
+</body>
+</html>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Recipechat Login</title>
+ {% load static %}
+    <!-- firebase -->
+    <script src="https://www.gstatic.com/firebasejs/4.8.2/firebase.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/4.8.2/firebase-auth.js"></script>
+    <script src="https://cdn.firebase.com/libs/firebaseui/2.5.1/firebaseui.js"></script>
+    <link
+      type="text/css"
+      rel="stylesheet"
+      href="https://cdn.firebase.com/libs/firebaseui/2.5.1/firebaseui.css"
+    />
+       <script
+      type="text/javascript"
+      src="https://unpkg.com/@cometchat-pro/chat@2.3.1/CometChat.js"
+    ></script>
+    <script
+      defer
+      src="https://widget-js.cometchat.io/v2/cometchatwidget.js"
+    ></script>
+
+          <script src="https://www.gstatic.com/firebasejs/4.8.2/firebase.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/4.8.2/firebase-auth.js"></script>
+    <script src="https://cdn.firebase.com/libs/firebaseui/2.5.1/firebaseui.js"></script>
+    <link
+      type="text/css"
+      rel="stylesheet"
+      href="https://cdn.firebase.com/libs/firebaseui/2.5.1/firebaseui.css"
+    />
+       <link rel="stylesheet" href="style.css" />
+       <link rel="stylesheet" href="{% static 'styles/style.css' %}">
+  </head>
+  <body>
+    <!-- The surrounding HTML is left untouched by FirebaseUI.
+         Your app may use that space for branding, controls and other customizations.-->
+    <h1 style="text-align: center">Login To Chat</h1>
+    <div id="firebaseui-auth-container" hidden></div>
+
+<!-- jQuery -->
+    <script
+      src="https://code.jquery.com/jquery-3.6.0.min.js"
+      integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+      crossorigin="anonymous"
+    ></script>
+
+    <script>
+        var fireBase = fireBase || firebase;
+var hasInit = false;
+var config = {
+  /*apiKey: "AIzaSyBnqTPtrSqHu33dhXRydhfjxUPFsUOz1M4",
+  authDomain: "cometchat-jquery.firebaseapp.com",
+  projectId: "cometchat-jquery",
+  storageBucket: "cometchat-jquery.appspot.com",
+  messagingSenderId: "417540857629",
+  appId: "1:417540857629:web:1e36cc4670e5a0ccb7cbf4",*/
+  apiKey: "AIzaSyDia4LA4EHy-n7J-xpnCCnep9AUMzhp37s",
+    authDomain: "djangocometchat.firebaseapp.com",
+    databaseURL: "https://djangocometchat-default-rtdb.firebaseio.com",
+    projectId: "djangocometchat",
+    storageBucket: "djangocometchat.appspot.com",
+    messagingSenderId: "410320616513",
+    appId: "1:410320616513:web:41536667367e8464329ac0",
+    measurementId: "G-WFB6JZEX0R"
+};
+if (!hasInit) {
+  firebase.initializeApp(config);
+  hasInit = true;
+}
+
+(function () {
+  // cometchat initialization
+  var appID ="1894440ecee7c9f4"
+  //"324411fcdc5bd35";
+  var region = "us";
+  var appSetting = new CometChat.AppSettingsBuilder()
+    .subscribePresenceForAllUsers()
+    .setRegion(region)
+    .build();
+  CometChat.init(appID, appSetting).then(
+    () => {
+      console.log("Initialization completed successfully");
+      // You can now call login function.
+    },
+    (error) => {
+      console.log("Initialization failed with error:", error);
+      // Check the reason for error and take appropriate action.
+    }
+  );
+})();
+
+// cometchat widget initialization
+window.addEventListener("DOMContentLoaded", (event) => {
+  CometChatWidget.init({
+    appID: "1894440ecee7c9f4",
+    appRegion: "us",
+    authKey:"ed3e3f02d68b7cc32d9bbbd897d3b8faa404f86e"
+    //"3dbb7f5703362a6c3abd6f5e8974d5ef6bac4645",
+  }).then(
+    (response) => {
+      console.log("Initialization (CometChatWidget) completed successfully");
+    },
+    (error) => {
+      console.log("Initialization (CometChatWidget) failed with error:", error);
+      //Check the reason for error and take appropriate action.
+    }
+  );
+});
+
+    </script>
+    <script>
+        // FirebaseUI config.
+var uiConfig = {
+  signInSuccessUrl: "index.html",
+  signInOptions: [
+    // Leave the lines as is for the providers you want to offer your users.
+    firebase.auth.EmailAuthProvider.PROVIDER_ID,
+  ],
+  // Terms of service url.
+  tosUrl: "index.html",
+};
+
+// Initialize the FirebaseUI Widget using Firebase.
+var ui = new firebaseui.auth.AuthUI(firebase.auth());
+// The start method will wait until the DOM is loaded.
+ui.start("#firebaseui-auth-container", uiConfig);
+
+    </script>
+  </body>
+</html>

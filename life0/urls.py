@@ -47,6 +47,9 @@ url(r'^recipevideo/', include('recipevideo.urls')),
 url(r'^polls/', include('polls.urls')),
 url(r'^ingredient/', include('ingredient.urls')),
 
+url(r'^comet/', include('mycometchatter.urls')),
+
+url(r'^food/', include('myfood.urls')),
 
 
 ]
