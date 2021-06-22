@@ -17,6 +17,14 @@ from datetime import timedelta
 import  datetime
 import  dj_database_url
 
+import  django_heroku
+
+
+
+
+# Configure app for Heroku deployment
+django_heroku.settings(locals())
+
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
@@ -36,7 +44,9 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:4205",
     "http://127.0.0:4205",
     "http://localhost:3001",
-    "http://127.0.0.1:3001"
+    "http://127.0.0.1:3001",
+    "https://socialrecipehome.netlify.app",
+    "https://recipes147homi.netlify.app",
 
 ]
 ALLOWED_HOSTS = ["*"]
@@ -83,6 +93,7 @@ INSTALLED_APPS = [
     'feed',
     'story',
     'rest_framework',
+
 'rest_framework.authtoken',
     'rest_auth',
      'contactus',
