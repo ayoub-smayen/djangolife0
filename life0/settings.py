@@ -115,8 +115,8 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'life0.urls'
-STATICFILES_STORAGE='whitenoise.django.GzipManifestStaticFilesStorage'
-#STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+#STATICFILES_STORAGE='whitenoise.django.GzipManifestStaticFilesStorage'
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
