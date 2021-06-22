@@ -15,3 +15,6 @@ def detail_view(request, id):
         'post': post,
         'photos': photos
     })
+
+def chatter(request):
+    return  render(request,"food/chatter.html")

@@ -1,0 +1,2743 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        @import url(https://fonts.googleapis.com/css?family=Lato:400,300,700,100);
+
+
+//usual reset stuff
+*,*:before,*:after,ul,li,a,button,input,h1,h2,h3,h4,h5,h6,p, img, image, svg, path, g, button  {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	background-color: transparent;
+	border: none;
+	text-decoration: none;
+	font-family: 'Lato';
+  font-weight:300;
+	list-style: none;
+  outline:none;
+}
+
+.visible{
+  visibility:hidden;
+}
+
+.username{
+  cursor:pointer;
+}
+
+#settings{
+  width:20px;
+  border:0px solid orange;
+  position:absolute;
+  bottom:10px;
+  right:15px;
+  color:#FFF;
+  font-size:30px;
+  cursor:pointer;
+  z-index:1;
+}
+
+
+.users_online{
+  color:#FFF;
+  margin-top:20px;
+  font-weight:300;
+}
+
+#is_typing{
+  width: 100%;
+  max-width: 100%;
+  position: fixed;
+  bottom: 60px;
+  padding: 0 10px 10px;
+  font-size: 14px;
+  color:#FFF;
+  font-weight:300;
+}
+
+.close img{
+	width:19px;
+	float:left;
+	margin-top:2px;
+	cursor:pointer;
+}
+
+
+.status{
+	width:10px;
+	height:10px;
+	border-radius:50%;
+	position:absolute;
+}
+
+
+.error, .error2{
+	display:none;
+	margin-top:5px;
+	color:#fff;
+	font-size:13px;
+	border:0px solid orange;
+	width:350px;
+	text-align:center;
+}
+
+$bounce-color: #fff;
+$swipes-shadow-one: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.12);
+$swipes-shadow-two: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+$swipes-shadow-three: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+$swipes-shadow-four: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+$swipes-shadow-five: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
+
+html, body {
+	width: 100%;
+	height: 100%;
+	margin: 0;
+	padding: 0;
+	background:#FFF;
+	background-repeat: no-repeat;
+	background-position: center center;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	font-family: 'Lato';
+}
+
+li {
+	opacity: 1;
+	animation: fadeIn .4s ease-in-out forwards;
+}
+
+@keyframes fadeIn {
+	100% {
+		opacity: 1;
+	}
+}
+
+.all_content{
+	position:relative;
+	width:100%;
+	height:100%;
+}
+
+.wrapper_container{
+
+	height:100%;
+	width:100%;
+	border:0px solid orange;
+	padding-top:0px;
+	margin:0;
+
+}
+
+.wrapper {
+	width: 100%;
+	max-width: 100%;
+    position:absolute;
+	margin:auto;
+	bottom:60px;
+    z-index:100;
+	display:none;
+    border:0px solid orange;
+	overflow:auto;
+	height:86.6%;
+    padding:20px;
+	margin:0;
+}
+
+.notif_wrapper {
+	width:25%;
+	max-width:80%;
+	height:53px;
+	position:fixed;
+	right:0;
+	top:9%;
+	z-index:1002;
+	text-align:right;
+	overflow:hidden;
+	border:0px solid orange;
+}
+
+.notif_wrapper li{
+	width:100%;
+	text-align:right;
+	height:50px;
+    background-color: rgba(79, 102, 171, 0.26);
+	border-radius:10px;
+	border:2px solid #FFF;
+	padding-top:15px;
+	position:relative;
+	margin-bottom:3px;
+}
+
+.notif_wrapper li span{
+	color:#FFF;
+	width:100%;
+	position:absolute;
+	text-align:center;
+	margin:auto;
+	left:0;
+	right:0;
+	border:0px solid orange;
+}
+
+.notif_wrapper li b{
+position:absolute;
+	margin:auto;
+	height:auto;
+	top:7px;
+	left:2%;
+	border:0px solid orange;
+}
+
+.notif_img{
+width:30px;
+	height:30px;
+	border:1px solid #FFF;
+	border-radius:50%;
+}
+
+.mentions_wrapper{
+	position:absolute;
+	z-index:9999;
+	bottom:60px;
+	left:5px;
+	width:250px;
+	height:auto;
+	min-height:200px;
+	overflow:auto;
+	//background:#FFF;
+	background: linear-gradient(135deg, rgba(198,33,69,0.75) 0%,rgba(0, 175, 216, 0.86) 100%), url("https://dl.dropboxusercontent.com/s/bnjpyba893qh6kg/pattern.svg");
+	display:none;
+	color:#FFF !important;
+	border-radius: 10px 10px 0px 0px;
+	padding:10px;
+	border:2px solid #FFF;
+	border-bottom:0;
+	li{
+		border:0px solid orange;
+		margin:4px;;
+		padding:0;
+		width:90%;
+
+		.status{
+			right:0;
+			margin-top:5px;
+			margin-right:3px;
+		}
+
+		.user_name{
+			color:#FFF;
+			z-index:10000;
+			cursor:pointer !important;
+		}
+	}
+}
+
+.initModal .icon2{
+ position:relative;
+	width:350px;
+  height:300px;
+	border:0px solid orange;
+
+}
+
+.initModal .icon2 img{
+  position:absolute;
+  margin:auto;
+  left:0;
+  right:0;
+	width:250px;
+	padding-bottom:0px;
+}
+
+.avatar_Modal .icon2{
+font-size:18px;
+	width:100%;
+	border:0px solid orange;
+text-align:center;
+}
+
+.avatar_Modal .icon2 img{
+	width:350px;
+	height:350px;
+	border-radius:50%;
+	border:5px solid #FFF;
+	margin-bottom:50px;
+  -webkit-box-shadow: 0px 0px 15px 2px rgba(0,0,0,0.59);
+-moz-box-shadow: 0px 0px 15px 2px rgba(0,0,0,0.59);
+box-shadow: 0px 0px 15px 2px rgba(0,0,0,0.59);
+}
+
+li {
+
+	color: #34495e;
+	border:1px solid orange;
+	position:relative;
+
+
+	.user_name {
+		color: #FFF;
+		font-weight: 700;
+		padding-left:9px;
+		margin-bottom:4px;
+        border:0px solid orange;
+		visibility:visible;
+	}
+
+
+	small{
+		color:#FFF;
+		font-weight:300;
+    position:absolute;
+		right:15px;
+    bottom:-20px;
+		border:0px solid orange;
+
+    time{
+		float:right;
+		margin-right:5px;
+		margin-top:3px;
+	}
+	}
+
+
+
+
+
+	b{
+		position:absolute;
+		right:-55px;
+		top:10px;
+		font-size:13px;
+		font-weight:300;
+        display:none;
+	}
+
+}
+
+.last_message_animation{
+	max-width:305px;
+}
+
+.last_message_animation{
+	max-width:305px;
+
+	.status{
+		position:absolute;
+		top:-22px;
+    left:0px;
+	}
+}
+
+ul li:last-child {
+
+	.last_message_animation{
+    -moz-animation: bounceOut 1.5s 10;
+		-webkit-animation: bounceOut 1.5s 10;
+		-ms-animation: bounceOut 1.5s 10;
+			animation: bounceOut 1.5s 10;
+	}
+
+
+}
+
+
+@keyframes bounceOut {
+        0%{ box-shadow: 0 0 0 0.5px $bounce-color; opacity:1;}
+	    10%{ box-shadow: 0 0 0 1px $bounce-color; opacity:1;}
+        20%{ box-shadow: 0 0 0 1.5px $bounce-color; opacity:1;}
+	    30%{ box-shadow: 0 0 0 2px $bounce-color; opacity:1;}
+	    40%{ box-shadow: 0 0 0 2.5px $bounce-color; opacity:1;}
+	    50%{ box-shadow: 0 0 0 3px $bounce-color; opacity:1;}
+	    60%{ box-shadow: 0 0 0 2.5px $bounce-color; opacity:1;}
+        70%{ box-shadow: 0 0 0 2px $bounce-color; opacity:1;}
+	    80%{ box-shadow: 0 0 0 1.5px $bounce-color; opacity:1;}
+	    90%{ box-shadow: 0 0 0 1px $bounce-color; opacity:1;}
+	    100%{ box-shadow: 0 0 0 0.5px $bounce-color; opacity:1;}
+
+
+
+}
+
+input.message {
+  z-index:0;
+	width: 100%;
+	max-width: 100%;
+	border-top: 1px solid rgba(255, 255, 255, 0.57);
+	position: fixed;
+	bottom: 0;
+	height: 60px;
+	background-color: rgba(79, 102, 171, 0.16);
+	color:#FFF;
+	box-shadow: $swipes-shadow-one;
+	padding: 0 20px;
+    -webkit-user-select: text;
+  -khtml-user-select: text;
+  -moz-user-select: text;
+  -ms-user-select: text;
+  user-select: text;
+  -webkit-box-shadow: 1px -7px 17px -8px rgba(0,0,0,1);
+-moz-box-shadow: 1px -7px 17px -8px rgba(0,0,0,1);
+box-shadow: 1px -7px 17px -8px rgba(0,0,0,1);
+
+	&:focus {
+		outline: none;
+
+	}
+
+
+
+}
+
+input.message::-webkit-input-placeholder {
+color: #FFF !important;
+}
+
+input.message:-moz-placeholder { /* Firefox 18- */
+color: #FFF !important;
+}
+
+input.message::-moz-placeholder {  /* Firefox 19+ */
+color: #FFF !important;
+}
+
+input.message:-ms-input-placeholder {
+color: #FFF !important;
+}
+
+.initModal {
+	width: 100%;
+	height: 100%;
+	position: fixed;
+  z-index:100;
+	left: 0;
+	top: 0;
+	background: linear-gradient(135deg, rgba(198,33,69,0.75) 0%,rgba(198,117,45,0.75) 100%), url("https://dl.dropboxusercontent.com/s/bnjpyba893qh6kg/pattern.svg"), url("http://wallpapercave.com/wp/ZDRooQC.jpg") fixed;
+	background-repeat: repeat, repeat, no-repeat;
+	background-position: center center;
+	-webkit-background-size: 100%, 15%, cover;
+   background-size: 100%, 15%, cover;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+
+	h3 {
+		font-weight: 300;
+		color: #FFF;
+		border:0px solid orange;
+		text-align:center;
+	}
+
+	h5 {
+			color:#FFF;
+		width:100%;
+		font-weight: 300;
+		color: #FFF;
+		border:0px solid orange;
+		text-align:center;
+		margin-top:20px;
+		font-size:14px;
+		font-family: 'Lato', sans-serif;
+
+		a{
+			color:#FFF;
+		}
+
+		.btn-sample {
+  color: #ffffff;
+  background-color: #00AFD8;
+  border-color: #FFFFFF;
+			padding:15px;
+			border-radius:8px;
+}
+
+.btn-sample:hover,
+.btn-sample:focus,
+.btn-sample:active,
+.btn-sample.active,
+.open .dropdown-toggle.btn-sample {
+  color: #ffffff;
+  background-color: #FF6600;
+  border-color: #FFFFFF;
+}
+		}
+
+	input.username {
+		width: 350px;
+		height: 60px;
+		border-radius:10px;
+		background-color: #eee;
+		padding: 0 15px;
+		margin-top: 15px;
+		color: #444;
+		position:relative;
+		z-index:100;
+		-webkit-user-select: text;
+        -khtml-user-select: text;
+        -moz-user-select: text;
+        -ms-user-select: text;
+         user-select: text;
+
+		&:focus {
+			outline: none;
+		}
+	}
+}
+
+.avatar_Modal {
+	width: 100%;
+	height: 100%;
+	position: fixed;
+	left: 0;
+	top: 0;
+	background: linear-gradient(135deg, rgba(198,33,69,0.75) 0%,rgba(198,117,45,0.75) 100%), url("https://dl.dropboxusercontent.com/s/bnjpyba893qh6kg/pattern.svg"), url("http://wallpapercave.com/wp/ZDRooQC.jpg") fixed;
+	background-repeat: repeat, repeat, no-repeat;
+	background-position: center center;
+	-webkit-background-size: 100%, 15%, cover;
+   background-size: 100%, 15%, cover;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+	overflow:auto;
+
+	h4 {
+			color:#FFF;
+		width:100%;
+		font-weight: 400;
+		color: #FFF;
+		border:0px solid orange;
+		text-align:center;
+		margin-bottom:5px;
+		font-size:14px;
+		font-family: 'Lato', sans-serif;
+
+		}
+
+	#hint{
+		margin-bottom:30px;
+		font-weight:300;
+	}
+
+	#hint2{
+		margin-top:-40px;
+	}
+
+	h5 {
+			color:#FFF;
+		width:100%;
+		font-weight: 100;
+		color: #FFF;
+		border:0px solid orange;
+		text-align:center;
+		margin-top:15px;
+		font-size:14px;
+		font-family: 'Lato', sans-serif;
+
+		a{
+			color:#FFF;
+		}
+
+		.btn-sample {
+  color: #ffffff;
+  background-color: #00AFD8;
+  border-color: #FFFFFF;
+			padding:15px;
+			border-radius:8px;
+}
+
+.btn-sample:hover,
+.btn-sample:focus,
+.btn-sample:active,
+.btn-sample.active,
+.open .dropdown-toggle.btn-sample {
+  color: #ffffff;
+  background-color: #FF6600;
+  border-color: #FFFFFF;
+}
+		}
+
+	h3 {
+		width:100%;
+		font-weight: 300;
+		color: #FFF;
+		border:0px solid orange;
+		text-align:center;
+		margin-bottom:5px;
+		font-size:26px;
+		font-family: 'Lato', sans-serif;
+		font-weight:300;
+
+
+		span{
+			font-size:36px;
+		font-family: 'Lato', sans-serif;
+		font-weight:300;
+		}
+
+	}
+
+
+	.avatar_error{
+		display:none;
+	}
+
+	input.avatar_img {
+
+		&:focus {
+			outline: none;
+		}
+	}
+}
+
+.avatar_submit{
+	display:none;
+}
+
+.new{
+	border:0px solid #FFF;
+	margin:15px;
+	width:auto;
+	max-width:305px;
+
+}
+
+.nav{
+	position:fixed;
+	z-index:101;
+	top:0;
+	width:100%;
+	height:5%;
+}
+
+.user {
+	position:fixed;
+	border:0px solid orange;
+	border-bottom:2px solid #FFF;
+    margin-bottom:10px;
+	width:100%;
+	height:50px;
+	text-align:right;
+	//background-color: rgba(0, 175, 216, 0.86);
+	background: linear-gradient(135deg, rgba(198,33,69,0.75) 0%,rgba(0, 175, 216, 0.86) 100%), url("https://dl.dropboxusercontent.com/s/bnjpyba893qh6kg/pattern.svg");
+	color:#FFF;
+	font-size:17px;
+	font-family:Lato;
+	font-weight:300;
+	z-index:1000;
+	display:none;
+}
+
+.user #name{
+	border:0px solid orange;
+	padding-top:0;
+	padding-right:15px;
+
+}
+
+.user #away_message{
+	float:left;
+	border:0px solid orange;
+	padding-top:10px;
+    padding-left:7px;
+	cursor:pointer;
+	img{
+		width:25px;
+	}
+}
+
+.user #image{
+	border:0px solid orange;
+	width:3.5%;
+	padding-right:8px;
+	padding-top:2px;
+	cursor:pointer;
+
+  img{
+    -webkit-box-shadow: 0px 0px 5px 1px rgba(0,0,0,0.59);
+-moz-box-shadow: 0px 0px 5px 1px rgba(0,0,0,0.59);
+box-shadow: 0px 0px 5px 1px rgba(0,0,0,0.59);
+  }
+}
+
+
+.last_message_animation{
+	padding:15px;
+	padding-left:12px;
+	margin-top:5px;
+	background: rgba(101, 140, 184, 0.5);
+	border-radius:1.4em;
+	border-bottom-left-radius: 3px;
+	width:auto;
+	max-width:305px;
+	position:relative;
+	color:#FFF;
+	border:2px solid #FFF;
+  left:-10px;
+
+
+}
+
+.last_message_animation p {
+	width:auto;
+	max-width:100px;
+}
+
+.user_overlay{
+  position:absolute;
+  width:50px;
+  height:50px;
+  background:#000;
+  border-radius:50%;
+
+}
+
+.user_img{
+	width:50px;
+	height:50px;
+  border-radius:50%;
+	position:absolute;
+	top:0px;
+  right:-65px;
+	border:2px solid #FFF;
+  z-index:8000;
+	cursor:pointer;
+  -webkit-box-shadow: 0px 0px 1px 1px rgba(0,0,0,0.59);
+-moz-box-shadow: 0px 0px 1px 1px rgba(0,0,0,0.59);
+box-shadow: 0px 0px 1px 1px rgba(0,0,0,0.59);
+
+  &:hover{
+    transform:scale(1.1);
+  }
+	}
+
+
+
+.last_message_animation:hover{
+	//transform:scale(1.05);
+
+	.like{
+		//display:block;
+	}
+}
+
+.image-upload > input
+{
+    display: none;
+}
+
+.logged_in_img{
+	width:33px;
+	height:33px;
+	border-radius:50%;
+	border:2px solid #FFF;
+}
+
+.blah{
+    cursor: pointer;
+	position:relative;
+	z-index:100;
+	-moz-animation: bounceOut2 1.5s 10;
+		-webkit-animation: bounceOut2 1.5s 10;
+		-ms-animation: bounceOut2 1.5s 10;
+			animation: bounceOut2 1.5s 10;
+}
+
+@keyframes bounceOut2 {
+        0%{ box-shadow: 0 0 8 1.5px $bounce-color; opacity:1;}
+	    10%{ box-shadow: 0 0 0 2px $bounce-color; opacity:1;}
+        20%{ box-shadow: 0 0 0 2.5px $bounce-color; opacity:1;}
+	    30%{ box-shadow: 0 0 0 3px $bounce-color; opacity:1;}
+	    40%{ box-shadow: 0 0 0 3.5px $bounce-color; opacity:1;}
+	    50%{ box-shadow: 0 0 0 4px $bounce-color; opacity:1;}
+	    60%{ box-shadow: 0 0 0 3.5px $bounce-color; opacity:1;}
+        70%{ box-shadow: 0 0 0 3px $bounce-color; opacity:1;}
+	    80%{ box-shadow: 0 0 0 2.5px $bounce-color; opacity:1;}
+	    90%{ box-shadow: 0 0 0 2px $bounce-color; opacity:1;}
+	    100%{ box-shadow: 0 0 0 1.5px $bounce-color; opacity:1;}
+
+
+
+}
+
+#avatar_label.in {
+  color:white;
+  border-color:white;
+  background: radial-gradient(ellipse at center,#EB6A5A 0,#c9402f 100%);
+  i {
+    color:#fff;
+  }
+  label {
+    background: #fff;
+    color:#EB6A5A;
+  }
+}
+#avatar_label.hover {
+  color:gray;
+  border-color:white;
+  background:#fff;
+  border:5px dashed gray;
+  i {
+    color:#EB6A5A;
+  }
+  label {
+    background: #fff;
+    color:#EB6A5A;
+  }
+}
+#avatar_label.fade {
+  transition: all 0.3s ease-out;
+  opacity: 1;
+}
+
+.user_list_wrapper{
+	position:relative;
+
+
+
+}
+
+.hidden{
+	right:-300px !important;
+}
+
+.user_wrapper{
+	position:fixed;
+	overflow:auto;
+	z-index:1000;
+	//background: rgba(101, 140, 184, 0.9);
+	background: linear-gradient(135deg, rgba(198,33,69,0.75) 0%,rgba(198,117,45,0.75) 100%), url("https://dl.dropboxusercontent.com/s/bnjpyba893qh6kg/pattern.svg");
+	height:90%;
+	width:300px;
+	bottom:0;
+	right:0px;
+	border-radius: 10px 0 0 0 ;
+	border:2px solid #FFF;
+	border-bottom:0;
+  -webkit-transition: all 0.3s;
+	-moz-transition: all 0.3s;
+	transition: all 0.3s;
+  -webkit-box-shadow: inset 0px 0px 17px 1px rgba(0,0,0,0.59);
+-moz-box-shadow: inset 0px 0px 17px 1px rgba(0,0,0,0.59);
+box-shadow: inset 0px 0px 17px 1px rgba(0,0,0,0.59);
+
+	.status{
+		margin-right:10px;
+		margin-top:7px;
+		right:0;
+	}
+
+
+	.user_list_header{
+		position:fixed;
+		font-weight:300;
+		z-index:1002;
+		width:300px;
+		color:#000;
+		text-align:center;
+		border:0;
+		margin:0px;
+		font-size:20px;
+		background:rgba(255, 255, 255, 0.95);
+		padding:5px;
+		border-radius: 8px 0 0 0;
+
+		span{
+			font-size:15px;
+		}
+
+	}
+
+	.buffer{
+		margin-top:55px;
+		border:0;
+	}
+
+	.list_img{
+			width:30px;
+			height:30px;
+		border-radius:50%;
+		border:2px solid #FFF;
+		position:absolute;
+		visibility:hidden;
+		}
+
+	.user_name{
+		position:relative;
+		left:10px;
+		top:5px;
+	}
+}
+
+.settings_fields{
+  position:relative;
+  margin:auto;
+  height:100%;
+  width:80%;
+  border:0px solid orange;
+  top:0%;
+  left:0;
+  right:0;
+
+  #settings_btn {
+  color: #ffffff;
+  background-color: #00AFD8;
+  border-color: #FFFFFF;
+			padding:15px;
+			border-radius:8px;
+    outline:none;
+    border:0px solid orange;
+}
+
+#settings_btn:hover,
+#settings_btn:focus,
+#settings_btn:active,
+ #settings_btn.active, {
+  color: #ffffff;
+  background-color: #FF6600;
+  border-color: #FFFFFF;
+}
+
+}
+
+.btn_holder{
+  width:100%;
+  border:0px solid orange;
+   position:relative;
+    margin:auto;
+     top:88%;
+
+  button{
+    position:relative;
+    margin:auto;
+    left:40%;
+
+  }
+}
+
+.settings_input{
+  width:100%;
+  position:relative;
+  margin-bottom:10px;
+  -webkit-box-shadow: 0px 0px 4px 1px rgba(255,255,255,0.29);
+-moz-box-shadow: 0px 0px 4px 1px rgba(255,255,255,0.29);
+box-shadow: 0px 0px 4px 1px rgba(255,255,255,0.29);
+  border:1px solid rgba(255, 255, 255, 0.57);
+  height:40px;
+  font-size:15px;
+  padding:5px;
+  color:#FFF;
+  outline:none;
+  border-radius:8px;
+
+}
+
+input.settings_input::-webkit-input-placeholder {
+   color: #FFF !important;
+}
+
+input.settings_input:-moz-placeholder { /* Firefox 18- */
+   color: #FFF !important;
+}
+
+input.settings_input::-moz-placeholder {  /* Firefox 19+ */
+   color: #FFF !important;
+}
+
+input.settings_input:-ms-input-placeholder {
+   color: #FFF !important;
+}
+
+.settings_textarea{
+  width:100%;
+  position:relative;
+  margin-bottom:10px;
+  border:1px solid rgba(255, 255, 255, 0.57);
+  font-size:15px;
+  padding:5px;
+  color:#FFF;
+  outline:none;
+  border-radius:8px;
+  resize: none;
+  -webkit-box-shadow: 0px 0px 4px 1px rgba(255,255,255,0.29);
+-moz-box-shadow: 0px 0px 4px 1px rgba(255,255,255,0.29);
+box-shadow: 0px 0px 4px 1px rgba(255,255,255,0.29);
+}
+
+.settings_textarea::-webkit-input-placeholder {
+   color: #FFF !important;
+}
+
+.settings_textarea:-moz-placeholder { /* Firefox 18- */
+   color: #FFF !important;
+}
+
+.settings_textarea::-moz-placeholder {  /* Firefox 19+ */
+   color: #FFF !important;
+}
+
+.settings_textarea:-ms-input-placeholder {
+   color: #FFF !important;
+}
+
+.settings__contents {
+	background: linear-gradient(135deg, rgba(198,33,69,0.95) 0%,rgba(0, 175, 216, 0.95) 100%), url("https://dl.dropboxusercontent.com/s/bnjpyba893qh6kg/pattern.svg");
+  z-index:10000;
+  position: absolute;
+  width: 25%;
+  min-width:350px;
+  margin:auto;
+  top: 6rem;
+  left:0;
+  right:0;
+  height:650px;
+  border-radius:10px;
+  border:3px solid white;
+  //visibility:hidden;
+  color:#FFF;
+  -webkit-box-shadow: inset 0px 0px 17px 1px rgba(0,0,0,0.59);
+-moz-box-shadow: inset 0px 0px 17px 1px rgba(0,0,0,0.59);
+box-shadow: inset 0px 0px 17px 1px rgba(0,0,0,0.59);
+}
+
+.away__contents {
+	background: linear-gradient(135deg, rgba(198,33,69,0.95) 0%,rgba(0, 175, 216, 0.95) 100%), url("https://dl.dropboxusercontent.com/s/bnjpyba893qh6kg/pattern.svg");
+  z-index:10000;
+  position: absolute;
+  width: 25%;
+  min-width:350px;
+  margin:auto;
+  top: 6rem;
+  left:0;
+  right:0;
+  height:250px;
+  border-radius:10px;
+  border:3px solid white;
+  //visibility:hidden;
+  color:#FFF;
+  -webkit-box-shadow: inset 0px 0px 17px 1px rgba(0,0,0,0.59);
+-moz-box-shadow: inset 0px 0px 17px 1px rgba(0,0,0,0.59);
+box-shadow: inset 0px 0px 17px 1px rgba(0,0,0,0.59);
+
+  textarea{
+      width:90%;
+    position:absolute;
+    margin:auto;
+    left:0;
+    right:0;
+    bottom:10%;
+      height:50%;
+    color:#FFF;
+    padding:10px;
+    border:1px solid rgba(255, 255, 255, 0.57);
+    border-radius:10px;
+    resize: none;
+    }
+
+    .back  {
+    position:absolute;
+    bottom:10%;
+    left:5%;
+    background:#FFF;
+    border-radius:0px 10px 0px 10px;
+    padding:6px;
+    font-size:13px;
+    opacity:0;
+
+  }
+
+  .back:hover{
+      background:#FF6600;
+    color:#FFF;
+    }
+
+  .save_away  {
+    position:absolute;
+    bottom:10%;
+    right:5%;
+    background:#FFF;
+    border-radius:10px 0px 10px 0px;
+    padding:6px;
+    font-size:13px;
+
+  }
+
+  .save_away:hover{
+      background:#FF6600;
+    color:#FFF;
+    }
+
+  .away_header{
+    font-size:25px;
+    width:100%;
+    text-align:center;
+    margin-top:25px;
+  }
+
+  .away_subheader{
+    width:100%;
+    text-align:center;
+    margin-top:3px;
+    font-size:14px;
+  }
+}
+
+.modal__contents {
+	background: linear-gradient(135deg, rgba(198,33,69,0.95) 0%,rgba(0, 175, 216, 0.95) 100%), url("https://dl.dropboxusercontent.com/s/bnjpyba893qh6kg/pattern.svg");
+  z-index:10000;
+  position: relative;
+  width: 25%;
+  min-width:350px;
+  margin:auto;
+  top: 6rem;
+  height:650px;
+  border-radius:10px;
+  border:3px solid white;
+  //visibility:hidden;
+  color:#FFF;
+  -webkit-box-shadow: inset 0px 0px 17px 1px rgba(0,0,0,0.59);
+-moz-box-shadow: inset 0px 0px 17px 1px rgba(0,0,0,0.59);
+box-shadow: inset 0px 0px 17px 1px rgba(0,0,0,0.59);
+}
+
+.modal_image{
+  width:100%;
+
+}
+
+.modal_image img{
+  height:250px;
+  width:250px;
+  position:absolute;
+  margin:auto;
+  left:0;
+  right:0;
+  border-radius:50%;
+  border:3px solid rgba(0, 175, 216, 0.86);
+  top:4%;
+  -webkit-box-shadow: inset 0px 0px 17px 1px rgba(0,0,0,0.59);
+-moz-box-shadow: inset 0px 0px 17px 1px rgba(0,0,0,0.59);
+box-shadow: inset 0px 0px 17px 1px rgba(0,0,0,0.59);
+
+}
+
+.semicircle {
+  width: 250px;
+  height: 250px;
+  border-radius: 130px 130px 130px 130px;
+  border-top:3px solid rgba(0, 175, 216, 0.86);
+  border-left:3px solid rgba(0, 175, 216, 0.86);
+  border-right:3px solid rgba(0, 175, 216, 0.86);
+  border-bottom:3px solid rgba(0, 175, 216, 0.86);
+  //background: rgba(255, 255, 255, 0.87);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.85) 0%,rgba(255, 255, 255, 0.95) 100%), url("https://dl.dropboxusercontent.com/s/bnjpyba893qh6kg/pattern.svg");
+  position:relative;
+  margin:auto;
+  left:0;
+  right:0;
+  top:25px;
+  font-size:14px;
+  color:#2e2e2e;
+  font-weight:300;
+  text-align:center;
+  overflow:auto;
+  word-wrap: break-word;
+  -webkit-box-shadow: inset 0px 0px 14px 1px rgba(0,0,0,0.59);
+-moz-box-shadow: inset 0px 0px 14px 1px rgba(0,0,0,0.59);
+box-shadow: inset 0px 0px 14px 1px rgba(0,0,0,0.59);
+
+
+  small{
+    width:65%;
+    height: 65%;
+    border:0px solid orange;
+    position:absolute;
+    margin:auto;
+    left:0;
+    right:0;
+    top:10px;
+    bottom:0;
+    border-radius:50%;
+
+    u{
+      font-weight:500;
+      text-decoration:none;
+
+    }
+  }
+}
+
+.semicircle::-webkit-scrollbar {
+    display: none;
+}
+
+.settings_image{
+  width:200px;
+  border:0px solid orange;
+
+}
+
+.settings_image img{
+  height:200px;
+  width:200px;
+  position:absolute;
+  margin:auto;
+  left:0;
+  right:0;
+  border-radius:50%;
+  border:3px solid rgba(0, 175, 216, 0.86);
+  top:3%;
+  cursor:pointer;
+  -webkit-box-shadow: 0px 0px 6px 1px rgba(255,255,255,0.59);
+-moz-box-shadow: 0px 0px 6px 1px rgba(255,255,255,0.59);
+box-shadow: 0px 0px 6px 1px rgba(255,255,255,0.59);
+}
+
+.set_fields{
+  position:absolute;
+  margin:auto;
+  left:0;
+  right:0;
+  top:40%;
+  border:0px solid orange;
+}
+
+
+.modal_username {
+  position:absolute;
+  margin:auto;
+  left:0;
+  right:0;
+  width:100%;
+  text-align:center;
+  border:0px solid orange;
+  top:45%;
+  height:320px;
+}
+
+.modal_description{
+  border:0px solid orange;
+  width:90%;
+  position:absolute;
+  margin:auto;
+  left:0;
+  right:0;
+  margin-top:30px;
+  height:90%;
+  font-size:17px;
+  font-weight:300;
+}
+
+.username_text{
+  width:100%;
+  border:0px solid orange;
+  position:relative;
+
+}
+
+.details_username{
+    position:relative;
+    font-size:16px;
+    margin-top:4px;
+    cursor:pointer;
+  }
+
+.social{
+  border:0px solid orange;
+  width:90%;
+  position:absolute;
+  margin:auto;
+  left:0;
+  right:0;
+  bottom:0px;
+
+  font-size:23px;
+  font-weight:300;
+}
+
+.small{
+  font-size:18px;
+
+}
+
+
+.location_text{
+  width:100%;
+  border:0px solid orange;
+  font-size:15px;
+}
+
+.modal__close {
+  position: absolute;
+  right: 1rem;
+  top: 1rem;
+  text-decoration: none;
+  display: block;
+  color:#FFF;
+}
+
+.user_status_modal {
+  position: absolute;
+  left: 1rem;
+  top: 1rem;
+  text-decoration: none;
+  display: block;
+  color:#FFF;
+  font-size:13px;
+  font-weight:300;
+}
+
+.settings__close {
+  position: absolute;
+  right: 1rem;
+  top: 1rem;
+  text-decoration: none;
+  display: block;
+  color:#FFF;
+  z-index:100;
+}
+
+.away__close {
+  position: absolute;
+  right: 1rem;
+  top: 1rem;
+  text-decoration: none;
+  display: block;
+  color:#FFF;
+  z-index:100;
+}
+
+.away_toggle {
+  position: absolute;
+  left: 1rem;
+  top: 1rem;
+  text-decoration: none;
+  display: block;
+  color:#FFF;
+  z-index:100;
+
+  .away_label{
+    font-size:11px;
+    margin-left:2px;
+    margin-bottom:4px;
+
+    span{
+      font-size:11px;
+    }
+  }
+
+  /**
+ * Switch Styles
+ */
+
+/* Switch Container */
+.switch {
+  position: relative;
+  display: inline-block;
+}
+
+/* Hide the checkbox input (only needed for `:checked` property) */
+.switch-input {
+  display: none;
+}
+
+/* Switch */
+.switch-label {
+  display: block;
+  width: 48px;
+  height: 24px;
+  text-indent: -150%;
+  clip: rect(0 0 0 0);
+  color: transparent;
+  user-select: none;
+
+  /* Switch Rail & Knob */
+  &:before,
+  &:after {
+    content: "";
+    display: block;
+    position: absolute;
+    cursor: pointer;
+  }
+
+  /* Switch Rail */
+  &:before {
+    width: 100%;
+    height: 100%;
+    background-color: #dedede;
+    border-radius: 9999em;
+    transition: background-color 0.25s ease;
+  }
+
+  /* Switch Knob */
+  &:after {
+    top: 0;
+    left: 0;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background-color: #FFF;
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.45);
+    transition: left 0.25s ease;
+  }
+}
+
+/* When input is checked */
+.switch-input:checked + .switch-label {
+  /* Switch Rail */
+  &:before {
+    background-color: #89c12d;
+  }
+
+  /* Switch Knob */
+  &:after {
+    left: 24px;
+  }
+}
+
+}
+
+.modal__close:hover{
+  transform:scale(1.4);
+}
+
+.settings__close:hover{
+  transform:scale(1.4);
+}
+
+.modal--show {
+  visibility: visible;
+}
+
+.social img{
+    width:25px;
+  }
+
+.social img:hover{
+    transform:scale(1.5);
+  cursor:pointer;
+  }
+
+.mobile_stuff{
+      text-align:center;
+}
+
+@media (max-width : 48rem) {
+
+  .initModal{
+
+    .mobile_stuff{
+      text-align:center;
+      margin-bottom:30px;
+      border:0px solid orange;
+
+      button{
+        font-size:13px;
+      }
+    }
+  }
+
+  .avatar_Modal{
+
+    .icon2 img{
+      width:200px;
+      height:200px;
+
+    }
+
+    .icon2{
+
+      h3{
+        font-size:20px;
+      }
+
+      #hey_user{
+        font-size:28px;
+      }
+
+      #hint{
+        font-size:14px;
+      }
+    }
+  }
+
+  .initModal .icon2 img{
+    width:50%;
+    top:2%;
+    padding:0;
+  }
+
+  .initModal input.username{
+    width:80%;
+    top:-35px;
+  }
+
+  .modal__contents {
+  	top: 0;
+  	left: 0;
+    bottom: 0;
+    width: 100%;
+    height:100%;
+
+    margin: 0;
+    border-radius:0px;
+    -webkit-transform: scale(1);
+	-moz-transform: scale(1);
+	-ms-transform: scale(1);
+	transform: scale(1);
+	opacity: 1;
+	-webkit-transition: all 0.3s;
+	-moz-transition: all 0.3s;
+	transition: all 0.3s;
+
+  }
+
+  .settings__contents {
+  	top: 0;
+  	left: 0;
+    bottom: 0;
+    width: 100%;
+    height:100%;
+
+    margin: 0;
+    border-radius:0px;
+    -webkit-transform: scale(1);
+	-moz-transform: scale(1);
+	-ms-transform: scale(1);
+	transform: scale(1);
+	opacity: 1;
+	-webkit-transition: all 0.3s;
+	-moz-transition: all 0.3s;
+	transition: all 0.3s;
+  }
+
+  .away__contents {
+  	top: 0;
+  	left: 0;
+    bottom: 0;
+    width: 100%;
+    height:100%;
+
+    margin: 0;
+    border-radius:0px;
+    -webkit-transform: scale(1);
+	-moz-transform: scale(1);
+	-ms-transform: scale(1);
+	transform: scale(1);
+	opacity: 1;
+	-webkit-transition: all 0.3s;
+	-moz-transition: all 0.3s;
+	transition: all 0.3s;
+
+    textarea{
+      resize: none;
+      height:50%;
+      bottom:25%;
+    }
+
+    button{
+      bottom:25%;
+    }
+  }
+
+
+  .modal__close {
+    display: block;
+  }
+
+
+  .modal_image img{
+  height:250px;
+    width:250px;
+  }
+
+  .modal_username {
+    top:45%;
+  }
+
+  .social img{
+    width:25px;
+  }
+
+  .modal_description{
+    font-size:14px;
+    text-align:center;
+  }
+
+
+
+}
+
+
+    </style>
+</head>
+<body>
+
+</body>
+</html>
+
+<div class="all_content">
+        <div class="nav">
+            <table class="user">
+                <tr>
+                    <td id="away_message"><img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/229436/icon_footer_edit_white.png">
+                    </td>
+                    <td id="name"></td>
+
+                    <td id="image"></td>
+                </tr>
+            </table>
+        </div>
+
+
+        <div class="wrapper_container">
+
+          <div class="away__contents visible">
+          <a class="away__close" href="#"><i class="material-icons">close</i></a>
+            <div class="away_header">Set your away message</div>
+            <div class="away_subheader"><small>Choose a friendly message to show other users when you go away</small></div>
+            <textarea id="away_message_input" placeholder="Enter your away message">I am currently away.</textarea>
+            <button class="save_away">Set Away Message</button>
+            <button class="back">I'm Back</button>
+          </div>
+
+          <div class="settings__contents visible">
+    <a class="away_toggle" href="#">
+      <div class="away_label">Auto-Away: <span>ON</span></div>
+         <div class="switch">
+      <input id="switch-1" type="checkbox" class="switch-input" checked>
+      <label for="switch-1" class="switch-label">Switch</label>
+    </div>
+            </a>
+    <a class="settings__close" href="#"><i class="material-icons">close</i></a>
+            <div class="settings_fields">
+              <label class="settings_image" for="file-input">
+                <img id="settings_image" src="http://shackmanlab.org/wp-content/uploads/2013/07/person-placeholder.jpg">
+              </label>
+
+
+              <div class="set_fields">
+            <input type="text" class="settings_input" id="setting_username" placeholder="Username" disabled>
+            <input type="text" class="settings_input" id="setting_firstname" placeholder="First Name">
+            <input type="text" class="settings_input" id="setting_lastname" placeholder="Last Name">
+            <input type="text" class="settings_input" id="setting_location" placeholder="Location">
+              <textarea class="settings_textarea" rows="4" id="setting_description" placeholder="Enter a short description"></textarea>
+              </div>
+
+              <h5 class="btn_holder"><a><button class="btn-sample" id="settings_btn">Update</button></a></h5>
+
+            </div>
+          </div>
+
+          <div class="modal__contents visible">
+    <a class="modal__close" href="#"><i class="material-icons">close</i></a>
+    <a class="user_status_modal" href="#">Status: <span>Online</span></a>
+
+    <h1 class="modal_image"><img class="profile_image" src="">
+      <div class="semicircle">
+        <small><u>Away Message</u><br><br><span id="awaymessage">I am currently away, this is an example of a long away message. if the away message was this long, this is how much it may overflow from the container.</span>
+        </small>
+      </div>
+            </h1>
+    <h1 class="modal_username">
+      <div class="username_text"></div>
+      <div class="location_text"></div>
+      <div class="details_username copy_mention"></div>
+      <div class="modal_description">
+      </div>
+
+      <!--<div class="social">
+        <table width="100%">
+          <tr>
+            <td id="fb"><img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/229436/facebook.png"></td>
+            <td id="tw"><img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/229436/twitter.png"></td>
+            <td id="web"><img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/229436/instagram_(1).png"></td>
+          </tr>
+        </table>
+      </div>-->
+
+            </h1>
+
+</div>
+          <ul class="wrapper">
+            </ul>
+
+        </div>
+        <div class="user_list_wrapper">
+            <ul class="user_wrapper hidden">
+                <div class="user_list_header"><i class="close"><img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/229436/074202-rounded-glossy-black-icon-alphanumeric-x-solid.png"></i>Users <span>(0)</span>
+                </div>
+                <li class="buffer"> </li>
+            </ul>
+        </div>
+
+
+        <ul class="notif_wrapper"></ul>
+        <ul class="mentions_wrapper animated slideInLeft"></ul>
+        <span id="is_typing"></span>
+        <span id="settings"><i class="material-icons">settings</i></span>
+        <input class="message" type="text" placeholder="Enter message and press enter" />
+
+    </div>
+    <div class="avatar_Modal">
+
+        <div class="icon2">
+            <h3><span id="hey_user"></span></h3>
+            <h3>Let's set your avatar!</h3>
+            <h4 id="hint">(Larger images look better!)</h4>
+
+            <label id="avatar_label" for="file-input">
+                <img class="blah" src="http://shackmanlab.org/wp-content/uploads/2013/07/person-placeholder.jpg">
+
+            </label>
+            <h4 id="hint2">Just tap the placeholder and choose your file</h4>
+            <h5><a href="#"><button class="btn-sample" id="nope">No Avatar</button></a></h5>
+        </div>
+
+
+        <div class="image-upload">
+
+            <input id="file-input" type="file" class="avatar_img" />
+        </div>
+        <input class="avatar_submit" type="submit">
+        <span class="avatar_error">You must upload an avatar</span>
+
+    </div>
+
+    <div class="initModal">
+
+        <div class="icon2">
+            <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/229436/iva_white.png">
+
+        </div>
+        <h3></h3>
+        <input type="text" class="username" placeholder="Username + Enter" />
+        <span class="error"></span><span class="error2"></span>
+        <div class="mobile_stuff">
+        <h5><a href="#"><button class="btn-sample" id="guest">Continue as Guest<span></span></button></a></h5>
+      <div class="users_online"><span>0</span></div>
+      </div>
+
+
+    </div>
+
+
+<script>
+    var fb = new Firebase("https://glowing-heat-9106.firebaseio.com/");
+var messages = fb.child("messages");
+var notifications = fb.child("notifications");
+var users = fb.child("users");
+var btn = $('button');
+var wrap = $('.wrapper');
+var user_list = $('.user_wrapper');
+var notif_wrap = $('.notif_wrapper');
+var mention_wrap = $('.mentions_wrapper');
+var input = $('input.message');
+var usernameInput = $('input.username');
+var user = [];
+
+$(document).ready(function() {
+
+/*var $locationText2 = $('#setting_location');
+
+// Check for geolocation browser support and execute success method
+if (navigator.geolocation) {
+  navigator.geolocation.getCurrentPosition(geoLocationSuccess, geoLocationError, {timeout: 10000});
+}
+else {
+  alert('your browser doesn\'t support geolocation');
+}
+function geoLocationSuccess(pos) {
+  // get user lat,long
+  var myLat = pos.coords.latitude,
+      myLng = pos.coords.longitude,
+      loadingTimeout;
+
+
+  var loading = function() {
+    $locationText2.val('fetching...');
+  }
+
+  loadingTimeout = setTimeout(loading, 600);
+
+  var request = $.get( "http://nominatim.openstreetmap.org/reverse?format=json&lat="+myLat+"&lon=" + myLng)
+      .done(function(data) {
+        if (loadingTimeout) {
+          clearTimeout(loadingTimeout);
+					loadingTimeout = null;
+          $locationText2.val(data.address.city + ', ' + data.address.state);
+
+        }
+      })
+      .fail(function() {
+        // handle error
+      });
+};
+
+function geoLocationError(error){
+  var errors = {
+    1: 'Permission denied',
+    2: 'Position unavailable',
+    3: 'Request timeout'
+  };
+  alert("Error: " + errors[error.code]);
+}*/
+
+  $('#switch-1').click(function(){
+    if (this.checked) {
+        $('.away_label span').html('ON');
+
+    } else{
+      $('.away_label span').html('OFF');
+
+    }
+});
+
+  var modal = $('.modal__contents');
+
+$( "body" ).on( "click", '.user_name' , function(e) {
+  var username = user.join();
+  console.log(username);
+  showUserProfile(username);
+});
+
+$( "body" ).on( "click", '.user_img' , function(e) {
+  var username = e.target.getAttribute('alt');
+  showUserProfile(username);
+});
+
+function showUserProfile(username) {
+    console.log(username)
+    fb.child('users').child(username).once('value', function(snap) {
+        var user = snap.val();
+        if(user) {
+            console.log(user)
+            if(user.firstname) {
+                $('.modal_username .username_text').text(user.firstname + ' ' + user.lastname);
+            } else {
+                $('.modal_username .username_text').text("Anonymous");
+            }
+
+            if(user.description) {
+                $('.modal_username .modal_description').text(user.description);
+            } else {
+                $('.modal_username .modal_description').text("This user has not set a description just yet. Let them know!");
+            }
+            if(user.awaymessage) {
+                $('#awaymessage').text(user.awaymessage);
+            } else {
+                $('#awaymessage').text('I am currently away.');
+            }
+            if(user.location) {
+                $('.modal_username .location_text').text(user.location);
+            } else {
+                $('.modal_username .location_text').text("Jupiter, Outer Space");
+            }
+            if(user.status != 'Away') {
+                $('.semicircle small').css('display', 'none')
+            } else {
+                $('.semicircle small').css('display', 'block')
+            }
+
+            $('.modal_username .details_username').text('@' + user.name);
+            $('.modal_image .profile_image').attr('src', user.image);
+            $('.modal__contents .user_status_modal span').text(user.status);
+            $( modal ).toggleClass('visible');
+        } else {
+            console.log('user not found!!!');
+        }
+    })
+}
+
+$( ".modal__close" ).on( "click", function() {
+  $( modal ).toggleClass('visible');
+});
+
+  var settings_modal = $('.settings__contents');
+
+$( "body" ).on( "click", '#settings' , function() {
+$( settings_modal ).toggleClass('visible');
+});
+
+$( ".settings__close" ).on( "click", function() {
+  $( settings_modal ).toggleClass('visible');
+});
+
+  var away_modal = $('.away__contents');
+
+$( "body" ).on( "click", '#away_message' , function() {
+$( away_modal ).toggleClass('visible');
+$("#away_message_input").focus();
+$("#away_message_input").select();
+});
+
+$( ".away__close" ).on( "click", function() {
+  $( away_modal ).toggleClass('visible');
+});
+
+  $( ".save_away" ).on( "click", function() {
+  $( away_modal ).toggleClass('visible');
+});
+
+  $( ".save_away" ).on( "click", function() {
+    var username = $('#setting_username').val();
+    var away_message = $('#away_message_input').val();
+    userObj = {
+        awayauto: 'OFF',
+        awaymessage: away_message,
+        status: "Away"
+    }
+
+    $(".save_away").css('opacity', '0');
+    $(".back").css('opacity', '1');
+    fb.child('users').child(username).update(userObj, function(err){
+        if (err) console.log(err);
+    });
+  });
+
+   $( ".back" ).on( "click", function() {
+    var username = $('#setting_username').val();
+    userObj = {
+        awayauto: 'ON',
+        awaymessage: "I am away right now.",
+        status: "Online"
+    }
+
+    $(".save_away").css('opacity', '1');
+    $(".back").css('opacity', '0');
+      $( away_modal ).toggleClass('visible');
+    fb.child('users').child(username).update(userObj, function(err){
+        if (err) console.log(err);
+    });
+  });
+
+  $( "#settings_btn" ).on( "click", function() {
+    var username = $('#setting_username').val();
+    var firstname = $('#setting_firstname').val();
+    var lastname = $('#setting_lastname').val();
+    var location = $('#setting_location').val();
+    var description = $('#setting_description').val();
+    var awayauto = $('.away_label span').html()
+    userObj = {
+        username: username,
+        firstname: firstname,
+        lastname: lastname,
+        location: location,
+        description: description,
+        awayauto: awayauto
+    }
+    fb.child('users').child(username).update(userObj, function(err){
+        if (err) console.log(err);
+    })
+    $( settings_modal ).toggleClass('visible');
+  });
+
+    // setInterval(function() {
+
+        // setTimeout(function() {
+
+            users.orderByChild("status").on("child_added", function(snapshot) {
+                // console.log(snapshot.key() + " is " + snapshot.val().status);
+
+                var data_name = snapshot.key();
+                //input.val(name);
+                var status_bubble = '<span class="status"></span>';
+                // console.log($("#status" + snapshot.key()))
+                if (snapshot.val().status == "Online") {
+                    // $(".test").html(data_name + snapshot.val().status + status_bubble);
+                    $("#statusList" + snapshot.key()).css("background", "lime");
+                    $("#nameList" + snapshot.key()).text(snapshot.key() + ' (Online)');
+                    $("#statusMention" + snapshot.key()).css("background", "lime");
+                    $("#nameMention" + snapshot.key()).text(snapshot.key());
+                    $(".statusMsg" + snapshot.key()).css("background", "lime");
+                    $(".nameMsg" + snapshot.key()).text(snapshot.key());
+                } else if (snapshot.val().status == "Away") {
+                    // $(".test").html(data_name + snapshot.val().status + status_bubble);
+                    $("#statusList" + snapshot.key()).css("background", "yellow");
+                    $("#nameList" + snapshot.key()).text(snapshot.key() + ' (Away)');
+                    $("#statusMention" + snapshot.key()).css("background", "yellow");
+                    $("#nameMention" + snapshot.key()).text(snapshot.key());
+                    $(".statusMsg" + snapshot.key()).css("background", "yellow");
+                    $(".nameMsg" + snapshot.key()).text(snapshot.key());
+
+                } else if (snapshot.val().status == undefined) {
+                    // $(".test").html(data_name + 'Offline' + status_bubble);
+                    $("#statusList" + snapshot.key()).css("background", "red");
+                    $("#nameList" + snapshot.key()).text(snapshot.key() + ' (Offline)');
+                    $("#statusMention" + snapshot.key()).css("background", "red");
+                    $("#nameMention" + snapshot.key()).text(snapshot.key());
+                    $(".statusMsg" + snapshot.key()).css("background", "red");
+                    $(".nameMsg" + snapshot.key()).text(snapshot.key());
+                }
+                users.child(snapshot.key()).orderByChild("status").on("child_changed", function(changesnap) {
+                    //console.log(changesnap.key(), changesnap.val());
+
+                    if (changesnap.key() == 'status' && changesnap.val() == "Online") {
+                        // $(".test").html(data_name + snapshot.val().status + status_bubble);
+                        $("#statusList" + snapshot.key()).css("background", "lime");
+                        $("#nameList" + snapshot.key()).text(snapshot.key() + ' (Online)');
+                        $("#statusMention" + snapshot.key()).css("background", "lime");
+                        $("#nameMention" + snapshot.key()).text(snapshot.key());
+                        $(".statusMsg" + snapshot.key()).css("background", "lime");
+                        $(".nameMsg" + snapshot.key()).text(snapshot.key());
+                    } else if (changesnap.key() == 'status' && changesnap.val() == "Away") {
+                        // $(".test").html(data_name + snapshot.val().status + status_bubble);
+                        $("#statusList" + snapshot.key()).css("background", "yellow");
+                        $("#nameList" + snapshot.key()).text(snapshot.key() + ' (Away)');
+                        $("#statusMention" + snapshot.key()).css("background", "yellow");
+                        $("#nameMention" + snapshot.key()).text(snapshot.key());
+                        $(".statusMsg" + snapshot.key()).css("background", "yellow");
+                        $(".nameMsg" + snapshot.key()).text(snapshot.key());
+                    } else if (changesnap.key() == 'status' && changesnap.val() == undefined) {
+                        // $(".test").html(data_name + 'Offline' + status_bubble);
+                        $("#statusList" + snapshot.key()).css("background", "red");
+                        $("#nameList" + snapshot.key()).text(snapshot.key() + ' (Offline)');
+                        $("#statusMention" + snapshot.key()).css("background", "red");
+                        $("#nameMention" + snapshot.key()).text(snapshot.key());
+                        $(".statusMsg" + snapshot.key()).css("background", "red");
+                        $(".nameMsg" + snapshot.key()).text(snapshot.key());
+                    }
+                });
+                users.child(snapshot.key()).orderByChild("status").on("child_removed", function(removesnap) {
+                    //console.log(changesnap.key(), changesnap.val());
+
+                        $("#statusList" + snapshot.key()).css("background", "red");
+                        $("#nameList" + snapshot.key()).text(snapshot.key() + '(Offline)');
+                        $("#statusMention" + snapshot.key()).css("background", "red");
+                        $("#nameMention" + snapshot.key()).text(snapshot.key());
+                        $(".statusMsg" + snapshot.key()).css("background", "red");
+                        $(".nameMsg" + snapshot.key()).text(snapshot.key());
+                });
+            });
+        // }, 30);
+
+    // }, 5000);
+
+});
+
+$(document).on('click', '.copy_mention', function(e) {
+  var mentioned = $(this).text();
+  var input_content = $('input.message').val();
+    //e.preventDefault(); //for <a>
+    $('.message').val(input_content + mentioned + ': ');
+    $('.message').focus();
+    $(".mentions_wrapper").fadeOut();
+    $('.modal__contents').toggleClass('visible');
+    console.log(mentioned + ' was mentioned');
+    fb.child('mentions').child(mentioned).set('You were mentioned in a chat');
+});
+
+users.once("value", function(snapshot1) {
+    var a = snapshot1.numChildren();
+
+    if (a <= 0) {
+        messages.remove();
+    }
+
+});
+
+users.on('value', function(snapshot) {
+
+
+    var count = 0;
+    snapshot.forEach(function() {
+        count++;
+    });
+    $('.user_list_header span').html('(' + count + ')');
+
+  if (count == 1) {
+      $('.users_online span').html(count + ' user online');
+    } else {
+      $('.users_online span').html(count + ' users online');
+    }
+
+
+});
+
+
+(function($) {
+    $.sanitize = function(input) {
+        var output = input.replace(/<script[^>]*?>.*?<\/script>/gi, '').
+        replace(/<[\/\!]*?[^<>]*?>/gi, '').
+        replace(/<style[^>]*?>.*?<\/style>/gi, '').
+        replace(/<![\s\S]*?--[ \t\n\r]*>/gi, '');
+        return output;
+    };
+})(jQuery);
+
+$(input).keydown(isTyping);
+var to;
+function isTyping() {
+    if (to) {
+        clearTimeout(to);
+        to = null;
+    }
+	fb.child('typing_info').set(user.join() + ' is typing . . .');
+    to = setTimeout(stoppedTyping, 500);
+}
+
+function stoppedTyping() {
+    to = null;
+    fb.child('typing_info').remove();
+}
+
+fb.child('typing_info').on('value', function(snap){
+	console.log('snap', snap.val());
+	$('#is_typing').html(snap.val());
+});
+
+usernameInput.on('keyup', function(e) {
+    if (e.keyCode === 13 && usernameInput.val().length > 0) {
+        $(".user_wrapper").animate({
+            scrollTop: $(".user_wrapper")[0].scrollHeight
+        }, 1000);
+        var getTxt = usernameInput.val();
+        user.push(getTxt);
+         var location_value = $("#setting_location").val();
+  var location = new Firebase('https://glowing-heat-9106.firebaseio.com/users/' + getTxt);
+                                location.update({
+                                    location: location_value
+
+                                });
+        var logged_in_img = '<img src="" class="logged_in_img">';
+        $('.user #name').html('Chatting as ' + getTxt);
+        $('#setting_username').val(getTxt);
+        $('.user #image').append('<span class="status" id="status' + getTxt + '"></span><span>' + logged_in_img + '</span>');
+        $('#hey_user').html('Hey ' + getTxt + ',' + ' ');
+
+        var user_status = new Firebase('https://glowing-heat-9106.firebaseio.com/users/' + getTxt + '/status');
+
+
+        user_status.on("value", function(snapshot) {
+            var data = snapshot.val();
+
+            $('#name').html(getTxt + ' ' + '(' + data + ')');
+            var data2 = $('#name').html();
+            if (data == null) {
+                $('#name').html(getTxt + ' (Offline)');
+                $('#status' + getTxt).css('background', 'red');
+            }
+            if (data == "Away") {
+                $('#name').html(getTxt + ' (Away)');
+                $('#status' + getTxt).css('background', 'yellow');
+            }
+            if (data == "Online") {
+                $('#name').html(getTxt + ' (Online)');
+                $('#status' + getTxt).css('background', 'lime');
+            }
+            //user.push(guest + ' ' + '(' + data + ')');
+        });
+
+        $(document).ready(function() {
+
+            function go() {
+
+                var userData = {
+                    name: getTxt,
+                    status: 'Offline'
+                };
+
+                tryCreateUser(getTxt, userData);
+            }
+
+            var USERS_LOCATION = 'https://glowing-heat-9106.firebaseio.com/users';
+
+            function userCreated(getTxt, success) {
+                if (!success) {
+                    $('.error2').html("This username already exists!").fadeIn().fadeOut(3000);
+                  setTimeout(function(){
+                    usernameInput.val('');
+                  },1000);
+                } else {
+                    $('.initModal').css('display', 'none');
+                    $('.avatarModal').css('display', 'inline-block');
+                    usernameInput.val('');
+
+                }
+            }
+
+            // Tries to set /users/<userId> to the specified data, but only
+            // if there's no data there already.
+            function tryCreateUser(getTxt, userData) {
+                var usersRef = new Firebase(USERS_LOCATION);
+                usersRef.child(getTxt).transaction(function(currentUserData) {
+                    if (currentUserData === null)
+                        return userData;
+                }, function(error, committed) {
+                    console.log('committed', (error ? error : true))
+                    userCreated(getTxt, (error ? error : true));
+                });
+            }
+            go();
+
+
+
+        });
+
+    }
+    if (e.keyCode === 13 && usernameInput.val().length < 1) {
+        $('.error').html("You must enter a username!").fadeIn().fadeOut(3000);
+
+    }
+
+});
+
+$(".avatar_submit").click(function() {
+    $('.avatar_Modal').css('display', 'none');
+    $('.wrapper').css('display', 'block');
+    $('.user').fadeIn();
+    $(".wrapper").animate({
+        scrollTop: $(".wrapper")[0].scrollHeight
+    }, 1000);
+    var curUsername = user.join();
+    $('.message').attr('placeholder', 'Hey ' + curUsername + '. . .');
+
+});
+
+
+
+function makeid() {
+    var text = "";
+    var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+    for (var i = 0; i < 5; i++)
+        text += possible.charAt(Math.floor(Math.random() * possible.length));
+
+    return text;
+}
+
+$("#guest").click(function() {
+    $(".user_wrapper").animate({
+        scrollTop: $(".user_wrapper")[0].scrollHeight
+    }, 1000);
+
+    function randString(x) {
+        var s = "";
+        while (s.length < x && x > 0) {
+            var r = Math.random();
+            s += (r < 0.1 ? Math.floor(r * 100) : String.fromCharCode(Math.floor(r * 26) + (r > 0.5 ? 97 : 65)));
+        }
+        return s;
+    }
+    var curUsername = 'Guest-' + randString(5);
+    var user_status = new Firebase('https://glowing-heat-9106.firebaseio.com/users/' + curUsername + '/status');
+
+    var user_image = new Firebase('https://glowing-heat-9106.firebaseio.com/users/' + curUsername + '/image');
+
+    var user_name = new Firebase('https://glowing-heat-9106.firebaseio.com/users/' + curUsername + '/name');
+
+    user_status.on("value", function(snapshot) {
+        var data = snapshot.val();
+
+        $('#name').html(curUsername + ' ' + '(' + data + ')');
+        var data2 = $('#name').html();
+        if (data == null) {
+            $('#name').html(curUsername + ' (Offline)');
+            $('#status' + curUsername).css('background', 'red');
+        }
+        if (data == "Away") {
+            $('#name').html(curUsername + ' (Away)');
+            $('#status' + curUsername).css('background', 'yellow');
+        }
+        if (data == "Online") {
+            $('#name').html(curUsername + ' (Online)');
+            $('#status' + curUsername).css('background', 'lime');
+        }
+        //user.push(guest + ' ' + '(' + data + ')');
+    });
+
+
+
+    $(document).ready(function() {
+
+
+        function go() {
+          var userData = {
+          name: curUsername,
+          status: 'Offline'
+};
+            tryCreateUser(curUsername, userData);
+        }
+
+        var USERS_LOCATION = 'https://glowing-heat-9106.firebaseio.com/users';
+
+        function userCreated(curUsername, success) {
+            if (!success) {
+                $('.error').html("This username already exists!").fadeIn().fadeOut(3000);
+            } else {
+                var guest = curUsername;
+                user.push(guest);
+
+                var location_value = $("#setting_location").val();
+                var location = new Firebase('https://glowing-heat-9106.firebaseio.com/users/' + curUsername);
+                                location.update({
+                                    location: location_value
+
+                                });
+
+                $('#setting_username').val(guest);
+
+                usernameInput.val('');
+                $('.initModal').css('display', 'none');
+                $('.avatarModal').css('display', 'inline-block');
+                var curUsername = user.join();
+                var logged_in_img = '<img src="" class="logged_in_img">';
+                //$('.user #name').html('Online');
+                $('.user #image').append('<span class="status" id="status' + curUsername + '"></span><span>' + logged_in_img + '</span>');
+
+
+                $('#hey_user').html('Hey ' + curUsername + ',' + ' ');
+
+            }
+
+        }
+
+        // Tries to set /users/<userId> to the specified data, but only
+        // if there's no data there already.
+        function tryCreateUser(curUsername, userData) {
+            var usersRef = new Firebase(USERS_LOCATION);
+            usersRef.child(curUsername).transaction(function(currentUserData) {
+                if (currentUserData === null)
+                    return userData;
+            }, function(error, committed) {
+                userCreated(curUsername, committed);
+            });
+        }
+        go();
+
+        $(document).ready(function() {
+
+
+
+            idleTimer = null;
+            idleState = false;
+            idleWait = 120000;
+
+            (function($) {
+
+                $(document).ready(function() {
+
+                    $('*').bind('mousemove keydown scroll', function() {
+
+                        clearTimeout(idleTimer);
+
+                        if (idleState == true) {
+
+                            // Reactivated event
+                            //$('.status').css('background', 'lime');
+
+                            var curUsername = user.join();
+
+                            var online = 'Online';
+                            var status = new Firebase('https://glowing-heat-9106.firebaseio.com/users/' + curUsername);
+                            status.update({
+                                status: online
+
+                            });
+
+                        }
+
+                        idleState = false;
+
+                        var awayauto = $('.away_label span').html()
+
+                        if (awayauto == 'ON') {
+
+                            idleTimer = setTimeout(function() {
+
+                                // Idle Event
+                                //$('.status').css('background', 'yellow');
+                                var curUsername = user.join();
+                                var away = 'Away';
+                                var status = new Firebase('https://glowing-heat-9106.firebaseio.com/users/' + curUsername);
+                                status.update({
+                                    status: away
+
+                                });
+
+                                idleState = true;
+                            }, idleWait);
+                        }
+                    });
+
+                    $("body").trigger("mousemove");
+
+
+
+                });
+            })(jQuery)
+
+            fb.child('mentions').child(curUsername).on('value', function(snap) {
+                notify(snap.val(), '')
+                fb.child('mentions').child(curUsername).remove();
+            })
+
+            var online_users = new Firebase('https://glowing-heat-9106.firebaseio.com/users/' + curUsername);
+            var mention_users = new Firebase('https://glowing-heat-9106.firebaseio.com/mentions/' + curUsername);
+            online_users.onDisconnect().remove();
+            mention_users.onDisconnect().remove();
+
+        });
+
+    });
+
+});
+
+function notify(text, image) {
+    notif_wrap.append('<li class="animated bounceInRight"><b><img class="notif_img" src="' + (image ? $.sanitize(image) : '') + '"></b><span>' + $.sanitize(text) + '</span></li>');
+
+    $(".notif_wrapper").fadeIn(1500);
+
+    setTimeout(function() {
+        $(".notif_wrapper").fadeOut(2000);
+    }, 3000);
+}
+
+$("#nope").click(function() {
+    var place_holder = 'http://shackmanlab.org/wp-content/uploads/2013/07/person-placeholder.jpg';
+
+    var svg = 'https://dl.dropboxusercontent.com/s/bnjpyba893qh6kg/pattern.svg';
+    $('html, body').css('background', 'linear-gradient(135deg, rgba(198,33,69,0.75) 0%,rgba(198,117,45,0.75) 100%), url(' + svg + ')' + ', url(' + place_holder + ') fixed');
+    $('html, body').css('background-size', 'cover');
+    $('.blah').attr('src', place_holder);
+    $('.profile_image').attr('src', place_holder);
+    $('.logged_in_img').attr('src', place_holder);
+    $('.avatar_Modal').css('display', 'none');
+    $('.wrapper').css('display', 'block');
+    $('.user').fadeIn();
+    $(".wrapper").scrollTop($(".wrapper")[0].scrollHeight);
+    var curUsername = user.join();
+    var status = 'Online';
+    $('.message').attr('placeholder', 'Hey ' + curUsername + '. . .');
+
+    setTimeout(function() {
+        $(".avatar_submit").click();
+        var getNotification = curUsername + ' has joined the room';
+        var getImage = $('.logged_in_img').attr('src');
+        notifications.push({
+            notification: getNotification,
+            image: getImage
+        });
+
+        var image_location = new Firebase('https://glowing-heat-9106.firebaseio.com/users/' + curUsername);
+
+      var location_value = $("#setting_location").val();
+
+        image_location.set({
+            image: getImage,
+            name: curUsername,
+            status: status,
+            location: location_value
+        });
+
+    }, 3000);
+
+});
+
+function readURL(input) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+
+        reader.onload = function(e) {
+            $('.blah').attr('src', e.target.result);
+            $('.logged_in_img').attr('src', e.target.result);
+          $('#settings_image').attr('src', e.target.result);
+          $('.profile_image').attr('src', e.target.result);
+
+        }
+
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+
+$("input.avatar_img").change(function() {
+    readURL(this);
+    setTimeout(function() {
+        $(".avatar_submit").click();
+        var curUsername = user.join();
+        var status = 'Online';
+        var getNotification = curUsername + ' has joined the room';
+        var getImage = $('.logged_in_img').attr('src');
+        notifications.push({
+            notification: getNotification,
+            image: getImage
+        });
+
+        var svg = 'https://dl.dropboxusercontent.com/s/bnjpyba893qh6kg/pattern.svg';
+        $('html, body').css('background', 'linear-gradient(135deg, rgba(198,33,69,0.75) 0%,rgba(198,117,45,0.75) 100%), url(' + svg + ')' + ', url(' + getImage + ') fixed');
+        $('html, body').css('background-size', 'cover');
+        var location_value = $("#setting_location").val();
+        var image_location = new Firebase('https://glowing-heat-9106.firebaseio.com/users/' + curUsername);
+
+        image_location.update({
+            name: curUsername,
+            status: status,
+            image: getImage,
+            location: location_value
+        });
+
+
+
+    }, 3000);
+
+});
+
+input.on('keyup', function(e) {
+    var curUsername = user.join();
+    var user_name = new Firebase('https://glowing-heat-9106.firebaseio.com/users/');
+
+    if (input.val().indexOf('@') >= 0) {
+        $(".mentions_wrapper").show();
+    } else {
+        $(".mentions_wrapper").fadeOut();
+    }
+
+    if (e.keyCode === 13 && input.val().length > 0) {
+        $(".wrapper").scrollTop($(".wrapper")[0].scrollHeight);
+        $(".mentions_wrapper").hide();
+        var getTxt = input.val();
+        var d = new Date();
+        var n = d.toISOString();
+        //var n = d.toUTCString();
+
+
+        var user_image = $('.logged_in_img').attr('src');
+
+        var messages_location = new Firebase('https://glowing-heat-9106.firebaseio.com/users/' + curUsername + '/messages');
+
+
+        messages_location.push({
+            message: getTxt,
+            time: n
+        });
+
+        messages.push({
+            message: getTxt,
+            time: n,
+            user: curUsername,
+            image: user_image
+        });
+
+        if (['\giphy'].some(function(v) {
+            return getTxt.toLowerCase().indexOf(v) > 0;
+          })) {
+          var query = getTxt.replace('\\giphy ', '').split(' ').join('+');
+          getGiphy(query);
+        }
+
+        input.val('');
+
+        function getGiphy(q) {
+            var url = 'http://api.giphy.com/v1/gifs/translate?api_key=dc6zaTOxFJmzC&s=' + q;
+
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', url);
+            xhr.onload = function() {
+              var json = JSON.parse(xhr.response);
+              var gif = json.data.images.fixed_height.url;
+              console.log(gif);
+              publishGif(gif);
+            };
+            xhr.onerror = function() {
+              console.log(e);
+            };
+            xhr.send();
+        }
+
+        function publishGif(gif) {
+           messages_location.push({
+                gif: gif,
+                time: n
+            });
+
+            messages.push({
+                gif: gif,
+                time: n,
+                user: curUsername,
+                image: user_image
+            });
+        }
+
+    }
+});
+
+$(document).ready(function() {
+
+    users.on("child_added", function(snap5) {
+
+        user_list.append('<li class="new username animated bounceInRight">' + '<span class="status" id="statusList' + snap5.val().name + '"></span><img class="list_img" src=""><span class="hidden user_name" id="nameList' + snap5.val().name + '">' + (snap5.val().name ? $.sanitize(snap5.val().name) : '') + '</span></li>');
+
+        mention_wrap.append('<li class="fadeInDown">' + '<span class="status" id="statusMention' + snap5.val().name + '"></span><img class="list_img" src=""><span class="user_name copy_mention" id="nameMention' + snap5.val().name + '">' + (snap5.val().name ? $.sanitize(snap5.val().name) : '') + '</span></li>');
+
+    });
+
+
+
+
+
+    users.on('child_removed', function(snap4) {
+        var value = snap4.val().name ? $.sanitize(snap4.val().name) : '';
+
+        setTimeout(function() {
+
+            $('.user_wrapper').find('li:contains("' + value + '")').remove();
+
+            $('.mentions_wrapper').find('li:contains("' + value + '")').remove();
+
+        }, 2000);
+        var user_image = snap4.val().image ? $.sanitize(snap4.val().image) : '';
+
+        var off_notification = value + ' has left the room'
+        notifications.push({
+            notification: off_notification,
+            image: user_image
+        });
+
+        fb.child('notifications').remove();
+        notif_wrap.append('<li class="animated bounceInRight"><b><img class="notif_img" src="' + (snap4.val().image ? $.sanitize(snap4.val().image) : '') + '"></b><span>' + $.sanitize(snap4.val().notification) + '</span></li>');
+
+        $(".notif_wrapper").fadeIn(1500);
+
+        setTimeout(function() {
+            $(".notif_wrapper").fadeOut(2000);
+        }, 3000);
+
+    });
+
+  messages.on("child_removed", function(snap9) {
+    var value = $.sanitize(snap9.val().user);
+    $('.wrapper').find('li:contains("' + value + '")').remove();
+  });
+
+    messages.on("child_added", function(snap) {
+
+        $('.message').attr('placeholder', 'Start Typing...');
+
+        if(snap.val().message) {
+            wrap.append('<li class="new animated bounceInLeft">' + '<span class="hidden user_name nameMsg' + snap.val().user + '">' + $.sanitize(snap.val().user) + '</span>' + '<div id="message_text" class="last_message_animation">' + $.sanitize(snap.val().message) + '<b class="like">0 Likes</b><span class="status statusMsg' + snap.val().user + '" style="background: red;"></span><img class="user_img" alt="' + snap.val().user + '" src="' + $.sanitize(snap.val().image) + '"></div>' + '<small><time class="timeago"></time></small>' + '</li>');
+        } else {
+            wrap.append('<li class="new animated bounceInLeft">' + '<span class="hidden user_name nameMsg' + snap.val().user + '">' + $.sanitize(snap.val().user) + '</span>' + '<div id="message_text" class="last_message_animation">' + '<img style="width:100%;border-radius:10px;" src="' + snap.val().gif + '">' + '<b class="like">0 Likes</b><span class="status statusMsg' + snap.val().user + '" style="background: red;"></span><img class="user_img" alt="' + snap.val().user + '" src="' + $.sanitize(snap.val().image) + '"></div>' + '<small><time class="timeago"></time></small>' + '</li>');
+        }
+        getUserStatus(snap.val().user);
+
+      $("time.timeago").attr("datetime", snap.val().time);
+      $("time.timeago").timeago();
+
+        sendMessNotification = function() {
+            var getTxt = $.sanitize(snap.val().message)
+            var user_image = $.sanitize(snap.val().image);
+            var user = $.sanitize(snap.val().user);
+            var audioElement = document.createElement('audio');
+            audioElement.setAttribute('src', 'http://www.smokeiva.com/app/webroot/audio/Facebook Pop.mp3');
+            audioElement.play();
+
+            Notification.requestPermission(function(permission) {
+
+                // Notification granted
+                if (permission === 'granted') {
+                    var options = {
+                        body: getTxt,
+                        icon: user_image,
+                        // onclick : trigger something if user clicks on notification,
+                        // onerror : If something goes wrong with the notification
+                        // silent : Can silence browser-default notification noises like DING or BLOOP or BUZZ,
+                        title: 'New Message'
+                    }
+                    var notification = new Notification(user, options);
+
+                }
+                setTimeout(function() {
+                    notification.close();
+                }, 8000);
+
+            });
+
+        }
+
+        sendMessNotification();
+
+        $(".wrapper").scrollTop($(".wrapper")[0].scrollHeight);
+
+    });
+});
+
+
+
+notifications.on("child_added", function(snap2) {
+
+    sendNotification = function() {
+
+        var audioElement2 = document.createElement('audio');
+        audioElement2.setAttribute('src', 'http://www.smokeiva.com/app/webroot/audio/Tweetdeck Ping.mp3');
+        audioElement2.play();
+
+        Notification.requestPermission(function(permission) {
+
+            // Notification granted
+            if (permission === 'granted') {
+                var options3 = {
+                    body: $.sanitize(snap2.val().notification),
+                    icon: $.sanitize(snap2.val().image),
+                    // onclick : trigger something if user clicks on notification,
+                    // onerror : If something goes wrong with the notification
+                    // silent : Can silence browser-default notification noises like DING or BLOOP or BUZZ,
+                    title: 'New User'
+                }
+                var notification3 = new Notification('New User!', options3);
+
+            }
+            setTimeout(function() {
+                notification3.close();
+            }, 8000);
+
+        });
+
+    }
+
+    sendNotification();
+    fb.child('notifications').remove();
+    notif_wrap.append('<li class="animated bounceInRight"><b><img class="notif_img" src="' + $.sanitize(snap2.val().image) + '"></b><span>' + $.sanitize(snap2.val().notification) + '</span></li>');
+
+    $(".notif_wrapper").fadeIn(1500);
+
+    setTimeout(function() {
+        $(".notif_wrapper").fadeOut(2000);
+
+        setTimeout(function() {
+            $(".notif_wrapper").html('');
+
+        }, 1000);
+
+    }, 3000);
+
+    $(".notif_wrapper").animate({
+        scrollTop: $(document).height()
+    }, 100);
+});
+
+function getUserStatus(username) {
+    users.child(username).once("value", function(snap) {
+        console.log(snap.key(), snap.val());
+
+        if (snap.val() && snap.val().status == "Online") {
+            $(".statusMsg" + snap.key()).css("background", "lime");
+            $(".nameMsg" + snap.key()).text(snap.key());
+        } else if (snap.val() && snap.val().status == "Away") {
+            $(".statusMsg" + snap.key()).css("background", "yellow");
+            $(".nameMsg" + snap.key()).text(snap.key());
+        } else if (snap.val() && snap.val().status == undefined) {
+            $(".statusMsg" + snap.key()).css("background", "red");
+            $(".nameMsg" + snap.key()).text(snap.key());
+        }
+    });
+}
+
+$("#image, .close").click(function() {
+    $(".user_wrapper").toggleClass("hidden", 500, "easeOutSine");
+});
+</script>
