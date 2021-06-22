@@ -23,7 +23,7 @@ import  django_heroku
 
 
 # Configure app for Heroku deployment
-django_heroku.settings(locals())
+
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -255,3 +255,4 @@ SALESMAN_BASKET_MODIFIERS = [
 
 #LOGIN_REDIRECT_URL = '/'
 #CRISPY_TEMPLATE_PACK = 'bootstrap4'
+django_heroku.settings(locals(), staticfiles=False)
