@@ -1,1 +1,1 @@
-web: waitress-serve --listen=127.0.0.1:8000 life0.life0.wsgi:application
+web: waitress-serve --port=$PORT life0.wsgi:application
