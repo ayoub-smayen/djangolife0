@@ -50,7 +50,7 @@ CORS_ALLOWED_ORIGINS = [
     "https://depwebpack1.herokuapp.com",
 
 ]
-ALLOWED_HOSTS = ["*",'127.0.0.1','https://depwebpack1.herokuapp.com']
+ALLOWED_HOSTS = ["*",'127.0.0.1','depwebpack1.herokuapp.com']
 CORS_ORIGIN_ALLOW_ALL = True
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO','https')
 STREAM_API_KEY = '3mmmubkzuat4'
