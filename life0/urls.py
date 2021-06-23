@@ -24,7 +24,7 @@ from rest_framework_jwt.views import  verify_jwt_token, refresh_jwt_token
 from django.contrib.auth.views import PasswordResetView, PasswordResetDoneView, PasswordResetConfirmView, PasswordResetCompleteView
 
 urlpatterns = [
-    '',
+
     url(r'^admin/', admin.site.urls),
 path('reset-password', PasswordResetView.as_view(), name='password_reset'),
     path('reset-password/done', PasswordResetDoneView.as_view(), name='password_reset_done'),
@@ -66,7 +66,7 @@ url(r'^food/', include('myfood.urls')),
 ]
 
 urlpatterns += [
-    path('catalog/', include('catalog.urls')),
+    path('catalog/', include('employess.urls')),
 ]
 
 

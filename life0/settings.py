@@ -90,6 +90,7 @@ INSTALLED_APPS = [
     'salesman.orders',
     'salesman.admin',
      'shop',
+    'employess',
     'mycometchatter',
     'feed',
     'story',
@@ -159,7 +160,7 @@ DATABASES = {
 }
 # Password validation  shopl
 # https://docs.djangoproject.com/en/1.11/ref/settings/#auth-password-validators
-DATABASES['default'] = dj_database_url.config(conn_max_age=600, ssl_require=True)
+#DATABASES['default'] = dj_database_url.config(conn_max_age=600, ssl_require=True)
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
