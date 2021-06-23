@@ -50,7 +50,7 @@ CORS_ALLOWED_ORIGINS = [
     "https://depwebpack1.herokuapp.com",
 
 ]
-ALLOWED_HOSTS = ["*",'127.0.0.1','depwebpack1.herokuapp.com']
+ALLOWED_HOSTS = ["*",'127.0.0.1','depwebpack1.herokuapp.com','*.netlify.app','*.herokuapp.com']
 CORS_ORIGIN_ALLOW_ALL = True
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO','https')
 STREAM_API_KEY = '3mmmubkzuat4'
@@ -112,7 +112,7 @@ MIDDLEWARE = [
      'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'life0.middleware.dev_cors_middleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
+#    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'life0.urls'
@@ -160,7 +160,7 @@ DATABASES = {
 }
 # Password validation  shopl
 # https://docs.djangoproject.com/en/1.11/ref/settings/#auth-password-validators
-DATABASES['default'] = dj_database_url.config(conn_max_age=600, ssl_require=True)
+#DATABASES['default'] = dj_database_url.config(conn_max_age=600, ssl_require=True)
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
@@ -236,7 +236,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
 ]
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+#STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 MEDIA_ROOT =  os.path.join(BASE_DIR, 'media') 
 MEDIA_URL = '/media/'
 
@@ -258,4 +258,4 @@ SALESMAN_BASKET_MODIFIERS = [
 
 #LOGIN_REDIRECT_URL = '/'
 #CRISPY_TEMPLATE_PACK = 'bootstrap4'
-django_heroku.settings(locals(), staticfiles=False)
+#django_heroku.settings(locals(), staticfiles=False)

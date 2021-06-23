@@ -34,22 +34,25 @@ class BookListView(generic.ListView):
     """Generic class-based view for a list of books."""
     model = Book
     paginate_by = 10
+    template_name = "catalog/book_list.html"
 
 
 class BookDetailView(generic.DetailView):
     """Generic class-based detail view for a book."""
     model = Book
+    template_name = "catalog/book_detail.html"
 
 
 class AuthorListView(generic.ListView):
     """Generic class-based list view for a list of authors."""
     model = Author
     paginate_by = 10
-
+    template_name = "catalog/author_list.html"
 
 class AuthorDetailView(generic.DetailView):
     """Generic class-based detail view for an author."""
     model = Author
+    template_name = "catalog/author_detail.html"
 
 
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -131,6 +134,7 @@ from .models import Author
 
 class AuthorCreate(PermissionRequiredMixin, CreateView):
     model = Author
+    template_name = "catalog/author_form.html"
     fields = ['first_name', 'last_name', 'date_of_birth', 'date_of_death']
     initial = {'date_of_death': '11/06/2020'}
     permission_required = 'catalog.can_mark_returned'
@@ -151,6 +155,7 @@ class AuthorDelete(PermissionRequiredMixin, DeleteView):
 # Classes created for the forms challenge
 class BookCreate(PermissionRequiredMixin, CreateView):
     model = Book
+    template_name = "catalog/book_form.html"
     fields = ['title', 'author', 'summary', 'isbn', 'genre', 'language']
     permission_required = 'catalog.can_mark_returned'
 

@@ -34,7 +34,11 @@ body{
     border: 1px solid red;
     color: red;
 }
-
+.sidebar-nav {
+    margin-top: 20px;
+    padding: 0;
+    list-style: none;
+}
 /* cometchat */
 #cometchat{
     margin: 10px;
