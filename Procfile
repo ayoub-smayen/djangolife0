@@ -1,1 +1,3 @@
-web: waitress-serve --port=$PORT life0.wsgi:application
+
+
+web :python manage.py runserver 0.0.0.0:$PORT --noreload
