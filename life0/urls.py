@@ -33,7 +33,7 @@ path('reset-password', PasswordResetView.as_view(), name='password_reset'),
     path('reset-password/complete/',PasswordResetCompleteView.as_view(),name='password_reset_complete'),
     url(r'^api/', include('salesman.urls')),
     url(r'^prod/',include('shop.urls')),
-    url(r'^', include('chat.urls')),
+    url(r'^chat1/', include('chat.urls')),
     url(r'^cart/',include("cart0.urls")),
     url(r'^forums/',include("forum.urls")),
     url(r'^contact-us', include('contactus.urls')),
@@ -63,6 +63,19 @@ url(r'^food/', include('myfood.urls')),
    url(r'^', include('food1.urls')),
 
 
+]
+
+urlpatterns += [
+    path('catalog/', include('catalog.urls')),
+]
+
+
+from django.views.generic import RedirectView
+urlpatterns += [
+    path('', RedirectView.as_view(url='/catalog/', permanent=True)),
+]
+urlpatterns += [
+    path('accounts/', include('django.contrib.auth.urls')),
 ]
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns, static
 #urlpatterns += staticfiles_urlpatterns()
