@@ -60,7 +60,7 @@ url(r'^ingredient/', include('ingredient.urls')),
 url(r'^comet/', include('mycometchatter.urls')),
 
 url(r'^food/', include('myfood.urls')),
-   url(r'^', include('food1.urls')),
+   url(r'^food1/', include('food1.urls')),
 
 
 ]
