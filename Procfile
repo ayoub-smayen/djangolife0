@@ -1,7 +1,7 @@
 
 
 
-web :python manage.py runserver 0.0.0.0:$PORT --noreload
+web :waitress-serve --port=$PORT life0.wsgi:application
 python manage.py collectstatic --noinput
 manage.py migrate
 
