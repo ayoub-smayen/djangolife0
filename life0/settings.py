@@ -62,7 +62,7 @@ INSTALLED_APPS = [
     'django.contrib.admin',
     "reciepe",
     "api",
-    'whitenoise.runserver_nostatic',
+    #'whitenoise.runserver_nostatic',
     #'knox',
     'myprofile0',
     "registration",
@@ -248,7 +248,7 @@ web :waitress-serve --port=$PORT life0.wsgi:application
 python manage.py collectstatic --noinput
 manage.py migrate
 """
-WHITENOISE_USE_FINDERS = True
+#WHITENOISE_USE_FINDERS = True
 #STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 MEDIA_ROOT =  os.path.join(BASE_DIR, 'media') 

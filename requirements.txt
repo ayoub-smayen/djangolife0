@@ -50,7 +50,8 @@ sqlparse==0.4.1
 sslcommerz-python==0.0.7
 static3==0.7.0
 stream-chat==3.4.0
-
+typed-ast==1.4.0
+typing-extensions==3.7.4.3
 urllib3==1.25.7
 validators==0.18.2
 waitress==2.0.0
