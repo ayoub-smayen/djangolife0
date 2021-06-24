@@ -166,8 +166,8 @@ DATABASES = {
 }
 # Password validation  shopl
 # https://docs.djangoproject.com/en/1.11/ref/settings/#auth-password-validators
-db_env= dj_database_url.config(conn_max_age=600, ssl_require=True)
-DATABASES['default'].update(db_env)
+DATABASES['default']= dj_database_url.config(conn_max_age=600, ssl_require=True)
+#.update(db_env)
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
