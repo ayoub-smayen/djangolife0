@@ -11,7 +11,8 @@ from django.contrib.auth.decorators import login_required
 #messages
 from django.contrib import messages
 
-
+def real_estate(request):
+    return render(request,"initiale.html")
 # Create your views here.
 
 @login_required

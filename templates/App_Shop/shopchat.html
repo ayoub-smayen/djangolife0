@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+
+    <style>
+        @import url("https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700");
+* {
+  box-sizing: border-box;
+}
+
+:root, html, body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: 'Open Sans', sans-serif;
+}
+
+body {
+  background: linear-gradient(135deg, #044f48, #2a7561);
+  background-size: cover;
+  overflow: hidden;
+  position: relative;
+  z-index: 1;
+}
+
+.bg {
+/*   z-index: 1; */
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  opacity: .52;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  background: url('https://images.unsplash.com/photo-1511593358241-7eea1f3c84e5?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=c40a2752dc4356e13d3b4e15ce8f22cf&auto=format&fit=crop&w=1567&q=80') no-repeat 0 0;
+  filter: blur(80px);
+/*   transform: scale(1.2); */
+  pointer-events: none;
+}
+
+#wrapper {
+  width: 300px;
+  height: 100%;
+  background-color: black;
+  margin: 0 auto;
+  z-index: 20;
+}
+
+#username_input {
+  width: 100%;
+  height: 8%;
+}
+
+#username_input input {
+  width: 100%;
+  height: 100%;
+  border: none;
+  border-bottom: 1px solid black;
+  padding-left: 7px;
+  outline: none;
+}
+
+#messages {
+  width: 100%;
+  height: 84%;
+  padding: 4.3%;
+  background-color: white;
+  overflow-x: hidden;
+}
+
+.message {
+  width: 100%;
+/*   height: 70px; */
+  background-color: darkgray;
+  border-radius: 10px;
+  padding: 7%;
+  margin-bottom: 17px;
+}
+.username {
+  width: 100%;
+  text-align: left;
+  text-decoration: underline;
+  margin-bottom: 10px;
+}
+.text {
+  width: 100%;
+}
+
+#input {
+  width: 100%;
+  height: 8%;
+  font-family: courier, monospace;
+}
+
+#input input {
+  width: 81%;
+  height: 100%;
+  border: none;
+  border-top: 1px solid black;
+  padding-left: 7px;
+  outline: none;
+}
+
+#input button {
+  width: 19%;
+  height: 100%;
+  background-color: black;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+    </style>
+</head>
+<body>
+
+
+<div class="bg"></div>
+<div id="wrapper">
+  <div id="username_input"><input type="text" placeholder="Place username here" id="user"></div>
+  <div id="messages">
+<!--     <div class="message">
+      <div class="username">Person</div>
+      <div class="text">Hi, this is a message</div>
+    </div> -->
+  </div>
+  <div id="input"><input type="text" placeholder="Place message here" id="text"><button id="send" type="button">Send</button></div>
+</div>
+
+<script>
+    (function() {
+  firebase.initializeApp({
+    apiKey: "AIzaSyAnXOIbDMrzoFWDldHEAO4uCgYzfrgphT4",
+    authDomain: "seven-squares-studios-staging.firebaseapp.com",
+    databaseURL: "https://seven-squares-studios-staging.firebaseio.com",
+    projectId: "seven-squares-studios-staging",
+    storageBucket: "seven-squares-studios-staging.appspot.com",
+    messagingSenderId: "275163125284"
+  });
+
+  var db = firebase.database();
+
+  db.ref("chats").orderByChild('time').limitToFirst(10).once("value", function(snapshot) {
+    var messageList = snapshot.val();
+    for (var ix in messages) {
+      if (messages.hasOwnProperty(ix)) {
+        addMessage(messages[ix]);
+      }
+    }
+    db.ref("chats").on('child_added', function(snapshot) {
+        var message = snapshot.val();
+        addMessage(message);
+      });
+  });
+  user.value = localStorage.getItem('username');
+  send.onclick = function () {
+    if (user.value && text.value) {
+      localStorage.setItem('username', user.value);
+      sendMessage(user.value, text.value, db.ref("chats")).then(function() {
+        text.value = '';
+      });
+    } else {
+      alert("You need to have a username (input box on top of app) and text in the message box");
+    }
+  };
+  text.onkeydown = function(event) {
+    // console.log(event.keyCode);
+    if (event.keyCode === 13) {
+      send.click();
+    }
+  };
+  user.focus();
+})();
+
+function addMessage(message) {
+  var div = document.createElement('div');
+        div.innerHTML = `<div class="message">
+      <div class="username">%USERNAME%</div>
+      <div class="text">%MESSAGE%</div>
+    </div>`;
+        div.innerHTML = div.innerHTML.replace('%USERNAME%', message.username);
+        div.innerHTML = div.innerHTML.replace('%MESSAGE%', message.text);
+        messages.appendChild(div);
+        div.scrollIntoView();
+}
+
+function sendMessage(username, text, db) {
+  var message = db.push({
+    username,
+    text,
+    time: Date.now()
+  });
+  return message;
+}
+</script>
+
+</body>
+</html>
