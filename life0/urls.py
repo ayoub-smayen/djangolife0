@@ -61,7 +61,10 @@ url(r'^comet/', include('mycometchatter.urls')),
 
 url(r'^food/', include('myfood.urls')),
    url(r'^food1/', include('food1.urls')),
-
+    path('accounts2/', include('App_Login.urls')),
+    path('shop1/', include('App_Shop.urls')),
+    path('shop/', include('App_Order.urls')),
+    path('payment/', include('App_Payment.urls')),
 
 ]
 

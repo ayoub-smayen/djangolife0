@@ -37,7 +37,7 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = User
-        fields = ('url', 'email', 'first_name', 'last_name', 'password', 'userprofile',
+        fields = ('url', 'email', 'first_name', 'last_name', 'password', 'userprofile','profile'
                   #'friends','user_recipes','friends_recipes','favorites',
 
                   )
@@ -45,16 +45,21 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
 
     def create(self, validated_data):
         profile_data = validated_data.pop('userprofile')
+        profile2 = validated_data.pop('prifile')
         password = validated_data.pop('password')
         user = User(**validated_data)
         user.set_password(password)
         user.save()
         UserProfile.objects.create(user=user, **profile_data)
+        profile2.objects.create(user=user,**profile2)
         return user
 
     def update(self, instance, validated_data):
         profile_data = validated_data.pop('userprofile')
         profile = instance.profile
+        profile2_data = validated_data.pop('profile2')
+        profile2 = instance.profile2
+
 
         instance.email = validated_data.get('email', instance.email)
         instance.save()

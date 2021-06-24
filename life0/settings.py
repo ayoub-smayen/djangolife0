@@ -35,7 +35,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '6)am1we7!xq8u@2*h8b%4g5&vjq0@z9x2#x)2&*c=f4bf2xwd('
 AUTH_USER_MODEL = 'api.User'
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
     #True
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
@@ -90,8 +90,13 @@ INSTALLED_APPS = [
     'salesman.orders',
     'salesman.admin',
      'shop',
+'crispy_forms',
     'employess',
     'mycometchatter',
+'App_Login',
+    'App_Shop',
+    'App_Order',
+    'App_Payment',
     'feed',
     'story',
     'rest_framework',
@@ -100,7 +105,7 @@ INSTALLED_APPS = [
     'rest_auth',
      'contactus',
 ]
-
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -160,7 +165,7 @@ DATABASES = {
 }
 # Password validation  shopl
 # https://docs.djangoproject.com/en/1.11/ref/settings/#auth-password-validators
-DATABASES['default'] = dj_database_url.config(conn_max_age=600, ssl_require=True)
+#DATABASES['default'] = dj_database_url.config(conn_max_age=600, ssl_require=True)
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
