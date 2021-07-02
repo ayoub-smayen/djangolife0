@@ -37,6 +37,7 @@ multidict==5.1.0
 numpy==1.20.1
 Pillow==8.1.0
 psycopg2==2.8.6
+psycopg2-binary==2.9.1
 pycares==3.1.1
 pycparser==2.20
 pycryptodomex==3.10.1
@@ -48,7 +49,7 @@ shortuuid==1.0.1
 six==1.13.0
 sqlparse==0.4.1
 sslcommerz-python==0.0.7
-static3==0.7.0
+
 stream-chat==3.4.0
 typed-ast==1.4.0
 typing-extensions==3.7.4.3
