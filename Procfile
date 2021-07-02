@@ -1,1 +1,1 @@
-web:gunicorn djangoherokuapp.wsgi --log-file -
+web:gunicorn life0.wsgi --log-file -
